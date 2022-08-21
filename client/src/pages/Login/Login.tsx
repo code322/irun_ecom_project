@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './Login.scss';
 export type loginTypes = {
 	email: string;
 	password: string;
@@ -9,6 +9,9 @@ const Login: React.FC = () => {
 		email: '',
 		password: '',
 	});
+	const [isValidEmail, setIsValidEmail] = useState<string | null>(null);
+	const [isValidPassword, setIsValidPassword] = useState<string | null>(null);
+	const [isAuth, setIsAuth] = useState<string | null>(null);
 
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, name } = e.target;

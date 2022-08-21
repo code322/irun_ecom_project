@@ -1,0 +1,58 @@
+@use '../../index.scss';
+$max-width: 445px;
+.login {
+	.login-container {
+		flex-direction: column;
+
+		.block-customer-login {
+			margin: auto;
+			max-width: $max-width;
+			flex-direction: column;
+			gap: index.$mg-2;
+			border-bottom: 1px solid rgba(207, 207, 207, 0.651);
+			padding-bottom: index.$mg-4;
+			.login-heading {
+				.title {
+					text-transform: capitalize;
+				}
+			}
+			.login-content {
+				flex-direction: column;
+				gap: index.$mg-2;
+				position: relative;
+				.auth-message {
+					position: absolute;
+					left: 0;
+					top: -14px;
+					font-size: 10px;
+				}
+				.form-control {
+					width: 100%;
+					position: relative;
+					input {
+						padding: 5px;
+						outline: none;
+						font-size: 16px;
+						width: 100%;
+						outline: none;
+						border: 1px solid #e1e1e1;
+						padding: 0.5rem;
+					}
+					small {
+						font-size: 10px;
+						position: absolute;
+						left: 2px;
+						bottom: -15px;
+					}
+				}
+			}
+		}
+		.block-new-customer {
+			margin: auto;
+			max-width: $max-width;
+			padding-top: index.$mg-4;
+			flex-direction: column;
+			gap: index.$mg-1;
+		}
+	}
+}
