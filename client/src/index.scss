@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Poppins', sans-serif;
+}
+#root {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+html,
+body {
+	height: 100%;
+	scrollbar-gutter: stable both-edges;
+	scrollbar-width: none;
+}
+
+// ==== breaking points ==== //
+$mobile-breaking-point: 375px;
+$ipad-breaking-point: 800px;
+$laptop-breaking-point: 1200px;
+
+//====colors ====//
+$primary-color: #212529;
+$secondary-color: #6c757d;
+
+// ==== Font sizes and typography ==== //
+$biggest-font-size: 4rem;
+$title-font-size: 24px;
+$sub-title-font-size: 20px;
+$text-font-size: 16px;
+
+$font-family: 'Poppins', sans-serif;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+
+// ==== margins ==== //
+$mg-1: 0.5rem;
+$mg-2: 1rem;
+$mg-3: 1.5rem;
+$mg-4: 2rem;
+$mg-5: 2.5rem;
+$mg-6: 3rem;
+
+.title {
+	font-size: $title-font-size;
+	color: $primary-color;
+	font-weight: $font-weight-medium;
+}
+.sub-title {
+	font-size: $sub-title-font-size;
+	color: $primary-color;
+	font-weight: $font-weight-normal;
+}
+
+.text {
+	font-size: $text-font-size;
+	color: $primary-color;
+	font-weight: $font-weight-normal;
+	line-height: $mg-3;
+}
+
+// ==== layout ==== //
+.grid {
+	display: grid;
+}
+
+.flex {
+	display: flex;
+}
+
+.bd-container {
+	max-width: 1200px;
+	padding-left: $mg-2;
+	padding-right: $mg-2;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.section {
+	padding-top: $mg-6;
+	padding-bottom: $mg-6;
+}
