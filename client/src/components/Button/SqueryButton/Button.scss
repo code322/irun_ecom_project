@@ -1,0 +1,21 @@
+@use '../../../index.scss';
+.square-button {
+	text-decoration: none;
+	padding: 5px index.$mg-3;
+	text-transform: capitalize;
+	color: white;
+	outline: none;
+	background-color: black;
+	border: none;
+	font-family: index.$font-family;
+	border: 1px solid black;
+	cursor: pointer;
+	font-size: 13px;
+	transition: all 0.3s ease-out;
+	width: fit-content;
+
+	&:hover {
+		background-color: white;
+		color: black;
+	}
+}

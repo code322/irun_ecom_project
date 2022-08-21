@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Button from '../../components/Button/SqueryButton/Button';
 import './Login.scss';
 export type loginTypes = {
 	email: string;
@@ -44,7 +45,7 @@ const Login: React.FC = () => {
 								name='password'
 							/>
 						</div>
-						<button>sign in</button>
+						<Button text='sign in' />
 					</div>
 				</div>
 				<div className='block-new-customer flex'>
@@ -53,7 +54,7 @@ const Login: React.FC = () => {
 						Creating an account has many benefits: checkout faster, keep more
 						than one address, track orders and more.
 					</p>
-					<button>Create an account</button>
+					<Button text='Create an account' />
 				</div>
 			</div>
 		</section>
