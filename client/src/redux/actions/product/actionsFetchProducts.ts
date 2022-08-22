@@ -1,7 +1,7 @@
 import { actionTypes, Actions } from './actionTypes';
 import axios from 'axios';
 import { Dispatch } from 'react';
-const server_url: string | undefined = process.env.REACT_APP_SERVER_URL;
+import { server_url } from './../../../utils/api';
 
 export const getAllProducts = () => async (dispatch: Dispatch<Actions>) => {
 	dispatch({
