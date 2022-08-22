@@ -2,7 +2,7 @@ import {
 	Actions,
 	actionTypes,
 	cartItems,
-} from '../actions/product/actionTypes';
+} from '../../actions/product/actionTypes';
 
 interface cartInterface {
 	cart: cartItems[];

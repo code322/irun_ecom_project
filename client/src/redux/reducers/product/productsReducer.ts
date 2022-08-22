@@ -1,5 +1,5 @@
-import { Actions, actionTypes } from '../actions/product/actionTypes';
-import { product } from '../actions/product/actionTypes';
+import { Actions, actionTypes } from '../../actions/product/actionTypes';
+import { product } from '../../actions/product/actionTypes';
 
 interface interfaceState {
 	loading: boolean;
