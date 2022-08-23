@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from '../../components/Button/SqueryButton/Button';
+import { login } from '../../redux/actions/auth/authActions';
 import './Login.scss';
+
 export type loginTypes = {
 	email: string;
 	password: string;
 };
+
 const Login: React.FC = () => {
 	const [input, setInput] = useState<loginTypes>({
 		email: '',
@@ -17,6 +21,11 @@ const Login: React.FC = () => {
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, name } = e.target;
 		setInput({ ...input, [name]: value });
+	};
+	const dispatch = useDispatch();
+
+	const handleClick = () => {
+		dispatch(login(input));
 	};
 	return (
 		<section className='login'>
@@ -45,7 +54,7 @@ const Login: React.FC = () => {
 								name='password'
 							/>
 						</div>
-						<Button text='sign in' />
+						<Button handleClick={handleClick} text='sign in' />
 					</div>
 				</div>
 				<div className='block-new-customer flex'>
