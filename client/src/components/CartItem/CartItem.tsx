@@ -5,6 +5,7 @@ import {
 	removeFromCart,
 	adjustQtyCart,
 } from '../../redux/actions/product/actionCart';
+import './CartItem.scss';
 
 interface Props {
 	title: string;
