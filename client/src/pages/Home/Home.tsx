@@ -6,6 +6,7 @@ import banner from '../../assets/images/running_banner.jpg';
 import banner_2 from '../../assets/images/banner_2.jpg';
 import banner_3 from '../../assets/images/banner_3.jpg';
 import './Home.scss';
+import Button from '../../components/Button/Round/Button';
 const Home = () => {
 	const dispatch = useDispatch();
 
@@ -23,7 +24,7 @@ const Home = () => {
 						shopping now to enjoy exclusive offers!
 					</p>
 
-					<button>shop now</button>
+					<Button url='/shop' text='shop now' txtColor='white' />
 				</div>
 				<div className='img-banner bd-container'>
 					<img src={banner} alt='' />
@@ -33,7 +34,7 @@ const Home = () => {
 				<div className='collection-title'>
 					<h1>change the trajectory</h1>
 					<p className='text'>Define our way forward with Huarache.</p>
-					<button>shop</button>
+					<Button url='/shop' text='shop now' txtColor='white' />
 				</div>
 				<div className='collection-container '>
 					<Products />
@@ -46,14 +47,14 @@ const Home = () => {
 						<img src={banner_2} alt='' />
 						<div className='trending-content'>
 							<p className='text'>indoor running shoes</p>
-							<button>shop now</button>
+							<Button url='/shop' text='shop now' txtColor='black' />
 						</div>
 					</div>
 					<div className='trending-right-content'>
 						<img src={banner_3} alt='' />
 						<div className='trending-content'>
 							<p className='text'>outdoor running shoes</p>
-							<button>shop now</button>
+							<Button url='/shop' text='shop now' txtColor='black' />
 						</div>
 					</div>
 				</div>

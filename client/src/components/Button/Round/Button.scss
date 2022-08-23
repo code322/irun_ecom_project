@@ -1,0 +1,8 @@
+@use '../../../index.scss';
+.reusable-btn {
+	text-decoration: none;
+	padding: 5px index.$mg-3;
+	text-transform: capitalize;
+	border-radius: 20px;
+	width: fit-content;
+}
