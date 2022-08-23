@@ -1,12 +1,18 @@
 import Nav from './components/Nav/Nav';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
 import Cart from './pages/Cart/Cart';
 import SignUp from './pages/SignUp/SignUp';
 import Product from './pages/Product/Product';
+import { RootState } from './redux/rootReducer';
+import { useSelector } from 'react-redux';
+
 const App = () => {
+	const isLoggedIn = useSelector(
+		(state: RootState) => state.authReducer.isLoggedIn
+	);
 	return (
 		<BrowserRouter>
 			<>
@@ -16,7 +22,10 @@ const App = () => {
 					<Route path='/product/:id' element={<Product />} />
 					<Route path='/shop' element={<Shop />} />
 					<Route path='/cart' element={<Cart />} />
-					<Route path='/login' element={<Login />} />
+					<Route
+						path='/singup'
+						element={isLoggedIn ? <Navigate to='/' /> : <SignUp />}
+					/>
 					<Route path='/signup' element={<SignUp />} />
 				</Routes>
 			</>
