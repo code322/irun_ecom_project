@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button/SqueryButton/Button';
+import ProductImages from '../../components/ProductImages/ProductImages';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import { addToCart } from '../../redux/actions/product/actionCart';
 import { getProduct } from '../../redux/actions/product/actionsFetchProducts';
@@ -24,7 +25,7 @@ const Product = () => {
 			<div className='bd-container product-container'>
 				<div className='product-wrapper'>
 					<div className='product-images'>
-						<div>product images</div>
+						<ProductImages images={product.images} />
 					</div>
 					<div className='product-info-container'>
 						<p className=' title'>{product.title}</p>
