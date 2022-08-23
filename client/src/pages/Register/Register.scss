@@ -1,0 +1,37 @@
+@use '../../index.scss';
+.register {
+	.register-container {
+		flex-direction: column;
+		gap: index.$mg-2;
+
+		max-width: 460px;
+		margin: auto;
+		.title {
+			text-transform: capitalize;
+			font-size: 1.5rem;
+			text-align: center;
+		}
+		.register-content {
+			flex-direction: column;
+			gap: index.$mg-2;
+			.form-control {
+				width: 100%;
+				position: relative;
+				small {
+					position: absolute;
+					left: 0;
+					bottom: -15px;
+					font-size: 10px;
+				}
+				input {
+					border: 1px solid #e1e1e1;
+					padding: index;
+					font-size: 16px;
+					outline: none;
+					padding: 0.5rem;
+					width: 100%;
+				}
+			}
+		}
+	}
+}
