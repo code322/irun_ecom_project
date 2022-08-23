@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/SqueryButton/Button';
 import { login } from '../../redux/actions/auth/authActions';
+import { RootState } from '../../redux/rootReducer';
+import { useNavigate } from 'react-router-dom';
 import './Login.scss';
 
-export type loginTypes = {
-	email: string;
-	password: string;
-};
-
 const Login: React.FC = () => {
+	type loginTypes = {
+		email: string;
+		password: string;
+	};
+
+	const nav = useNavigate();
+
+	const dispatch = useDispatch();
+	const { isLoggedIn, err } = useSelector(
+		(state: RootState) => state.authReducer
+	);
+
 	const [input, setInput] = useState<loginTypes>({
 		email: '',
 		password: '',
 	});
-	const [isValidEmail, setIsValidEmail] = useState<string | null>(null);
-	const [isValidPassword, setIsValidPassword] = useState<string | null>(null);
-	const [isAuth, setIsAuth] = useState<string | null>(null);
 
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
 		const { value, name } = e.target;
 		setInput({ ...input, [name]: value });
 	};
-	const dispatch = useDispatch();
 
-	const handleClick = () => {
+	useEffect(() => {
+		if (isLoggedIn) {
+			nav('/cart');
+		}
+	}, [isLoggedIn, nav]);
+	const handleClick = async () => {
 		dispatch(login(input));
 	};
 	return (
@@ -44,6 +55,7 @@ const Login: React.FC = () => {
 								type='text'
 								placeholder='Email *'
 								name='email'
+								value={input.email}
 							/>
 						</div>
 						<div className='form-control'>
@@ -52,9 +64,11 @@ const Login: React.FC = () => {
 								type='password'
 								placeholder='Password *'
 								name='password'
+								value={input.password}
 							/>
 						</div>
 						<Button handleClick={handleClick} text='sign in' />
+						{err && <small>Please Enter a Valid Email and Password</small>}
 					</div>
 				</div>
 				<div className='block-new-customer flex'>

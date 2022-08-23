@@ -1,11 +1,10 @@
-import { loginTypes } from './../../../pages/Login/Login';
+// import { loginTypes } from './../../../pages/Login/Login';
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { actionTypes, Actions } from './authTypes';
 import { server_url } from '../../../utils/api';
-// login
-// import { AnyAction } from 'redux';
 
+// login
 export const login = (input: any) => async (dispatch: Dispatch<Actions>) => {
 	try {
 		const { data } = await axios.post(`${server_url}/api/auth/login`, input);
@@ -23,7 +22,7 @@ export const login = (input: any) => async (dispatch: Dispatch<Actions>) => {
 };
 
 // register
-export const register = (input: loginTypes) => async (dispatch: Dispatch) => {
+export const register = (input: any) => async (dispatch: Dispatch) => {
 	try {
 		const { data } = await axios.post(`${server_url}/api/auth/register`, input);
 		dispatch({
