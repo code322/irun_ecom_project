@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/SqueryButton/Button';
+import CartItem from '../../components/CartItem/CartItem';
 import { RootState } from '../../redux/rootReducer';
 import './Cart.scss';
 
@@ -40,15 +41,16 @@ const Cart: React.FC = () => {
 				<div className='cart-items'>
 					{cart.map((item) => {
 						return (
-							<div key={item._id}>
-								<p>{item.title}</p>
-								<p>{item.details}</p>
-								<p>{item.price}</p>
-								<p>{item.images}</p>
-								<p>{item.qty}</p>
-								<p>{item.inStock}</p>
-								<p>{item._id}</p>
-							</div>
+							<CartItem
+								key={item._id}
+								title={item.title}
+								details={item.details}
+								price={item.price}
+								images={item.images}
+								qty={item.qty}
+								inStock={item.inStock}
+								_id={item._id}
+							/>
 						);
 					})}
 				</div>
