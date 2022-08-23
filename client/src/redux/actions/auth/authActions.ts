@@ -17,7 +17,6 @@ export const login = (input: any) => async (dispatch: Dispatch<Actions>) => {
 			type: actionTypes.LOGIN_FAIL,
 			payload: error,
 		});
-		console.log(error);
 	}
 };
 
