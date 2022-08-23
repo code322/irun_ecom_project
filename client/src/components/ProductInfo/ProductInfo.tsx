@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BiMinus, BiPlus } from 'react-icons/bi';
+import './ProductInfo.scss';
 
 interface Props {
 	title: string;

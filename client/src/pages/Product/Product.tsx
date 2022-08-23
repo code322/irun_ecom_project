@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button/SqueryButton/Button';
+import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import { addToCart } from '../../redux/actions/product/actionCart';
 import { getProduct } from '../../redux/actions/product/actionsFetchProducts';
 import { RootState } from '../../redux/rootReducer';
@@ -36,8 +37,11 @@ const Product = () => {
 							/>
 						</div>
 						<div className='general-info'>
-							<div> product description</div>
-							<div> general info</div>
+							<ProductInfo title='details' description={product.description} />
+							<ProductInfo
+								title='delivery and return'
+								description={product.generalInfo}
+							/>
 						</div>
 					</div>
 				</div>
