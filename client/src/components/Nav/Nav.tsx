@@ -4,9 +4,20 @@ import { VscAccount } from 'react-icons/vsc';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { RiShoppingBagLine } from 'react-icons/ri';
 import './Nav.scss';
+import { RootState } from '../../redux/rootReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/actions/auth/authActions';
 
 const Nav = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const {
+		authReducer: { isLoggedIn },
+		cartReducer: { cart },
+	} = useSelector((state: RootState) => state);
+	let totalItems = 0;
+	cart.forEach(({ qty }) => (totalItems += qty));
+
+	const dispatch = useDispatch();
 
 	return (
 		<nav>
@@ -31,14 +42,23 @@ const Nav = () => {
 							<Link to='#'>Support</Link>
 						</li>
 						<li onClick={() => setIsOpen(false)}>
-							<Link className='account-container' to='/login'>
-								<VscAccount />
-								{/* <p style={{ fontSize: "13px" }}>account</p> */}
-							</Link>
+							{isLoggedIn ? (
+								<Link
+									onClick={() => dispatch(logout())}
+									className='account-container'
+									to='/'
+								>
+									<AiOutlineLogout />
+								</Link>
+							) : (
+								<Link className='account-container' to='/login'>
+									<VscAccount />
+								</Link>
+							)}
 						</li>
 					</div>
 					<Link to='/cart' className='cart-icon-wrapper'>
-						<p className='inCart'>3</p>
+						<p className='inCart'>{totalItems}</p>
 						<div className='cart-icon' onClick={() => setIsOpen(false)}>
 							<RiShoppingBagLine />
 						</div>
