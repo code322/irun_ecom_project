@@ -1,0 +1,36 @@
+@use '../../index.scss';
+.product-list {
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 10px;
+	display: grid;
+
+	.product {
+		a {
+			text-decoration: none;
+		}
+		img {
+			width: 100%;
+		}
+		.product-details {
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+			.product-info {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				.text {
+					font-weight: 500;
+				}
+			}
+			.price {
+				font-weight: 500;
+			}
+		}
+
+		.gender {
+			color: rgba(0, 0, 0, 0.568);
+			text-transform: capitalize;
+		}
+	}
+}
