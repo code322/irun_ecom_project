@@ -1,8 +1,7 @@
-@use '../../index';
+@use '../../index.scss';
 nav {
-	height: 3.5rem;
+	min-height: 3.5rem;
 	display: flex;
-
 	.nav-container {
 		width: 100%;
 		display: flex;
