@@ -9,6 +9,7 @@ import { RootState } from './redux/rootReducer';
 import { useSelector } from 'react-redux';
 import Register from './pages/Register/Register';
 import './App.scss';
+import Checkout from './pages/Checkout/Checkout';
 const App = () => {
 	const isLoggedIn = useSelector(
 		(state: RootState) => state.authReducer.isLoggedIn
@@ -23,6 +24,7 @@ const App = () => {
 					<Route path='/shop' element={<Shop />} />
 					<Route path='/cart' element={<Cart />} />
 					<Route path='/login' element={<Login />} />
+					<Route path='/checkout' element={<Checkout />} />
 
 					<Route
 						path='/register'
