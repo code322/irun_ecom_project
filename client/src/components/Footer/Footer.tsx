@@ -7,6 +7,7 @@ import {
 import './Footer.scss';
 
 const Footer: React.FC = () => {
+	console.log(new Date().getFullYear());
 	return (
 		<footer>
 			<div className='footer-container bd-container '>
@@ -49,7 +50,7 @@ const Footer: React.FC = () => {
 				</div>
 				<div className='footer-bottom'>
 					<small>
-						&#169; {new Date().getFullYear} iRun. All rights reserved.
+						&#169; {new Date().getFullYear()} iRun. All rights reserved.
 					</small>
 				</div>
 			</div>
