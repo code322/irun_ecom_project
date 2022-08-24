@@ -77,7 +77,10 @@ const Login: React.FC = () => {
 						Creating an account has many benefits: checkout faster, keep more
 						than one address, track orders and more.
 					</p>
-					<Button text='Create an account' />
+					<Button
+						text='Create an account'
+						handleClick={() => nav('/register')}
+					/>
 				</div>
 			</div>
 		</section>
