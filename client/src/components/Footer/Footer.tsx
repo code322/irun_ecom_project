@@ -7,7 +7,6 @@ import {
 import './Footer.scss';
 
 const Footer: React.FC = () => {
-	console.log(new Date().getFullYear());
 	return (
 		<footer>
 			<div className='footer-container bd-container '>

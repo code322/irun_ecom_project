@@ -8,8 +8,7 @@ import Product from './pages/Product/Product';
 import { RootState } from './redux/rootReducer';
 import { useSelector } from 'react-redux';
 import Register from './pages/Register/Register';
-import Footer from './components/Footer/Footer';
-
+import './App.scss';
 const App = () => {
 	const isLoggedIn = useSelector(
 		(state: RootState) => state.authReducer.isLoggedIn
@@ -30,7 +29,6 @@ const App = () => {
 						element={isLoggedIn ? <Navigate to='/' /> : <Register />}
 					/>
 				</Routes>
-				<Footer />
 			</>
 		</BrowserRouter>
 	);
