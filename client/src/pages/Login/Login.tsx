@@ -11,6 +11,9 @@ const Login: React.FC = () => {
 		email: string;
 		password: string;
 	};
+	const [isValidEmail, setIsValidEmail] = useState<any>(null);
+	const [isValidPassword, setIsValidPassword] = useState<any>(null);
+	const [isAuth, setIsAuth] = useState<any>(null);
 
 	const nav = useNavigate();
 
@@ -35,9 +38,50 @@ const Login: React.FC = () => {
 			nav('/cart');
 		}
 	}, [isLoggedIn, nav]);
-	const handleClick = async () => {
-		dispatch(login(input));
+
+	const validateOnClick = () => {
+		if (isValidEmail && isValidPassword) {
+			dispatch(login(input));
+		}
+		if (!isValidEmail) {
+			setIsValidEmail(false);
+		}
+		if (!isValidPassword) {
+			setIsValidPassword(false);
+		}
 	};
+	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		validateOnClick();
+	};
+
+	// validate email
+	const regexp =
+		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+	let validEmail = regexp.test(input.email);
+	useEffect(() => {
+		const validateInput = () => {
+			//validate email
+			input.email.length === 0
+				? setIsValidEmail(null)
+				: validEmail
+				? setIsValidEmail(true)
+				: setIsValidEmail(false);
+
+			// validate password
+			input.password.length === 0
+				? setIsValidPassword(null)
+				: input.password.length > 6
+				? setIsValidPassword(true)
+				: setIsValidPassword(false);
+		};
+		validateInput();
+	}, [input.email, validEmail, input.password]);
+
+	// validate password
+
+	console.log(isValidEmail);
 	return (
 		<section className='login'>
 			<div className='bd-container section login-container flex'>
@@ -48,7 +92,7 @@ const Login: React.FC = () => {
 							If you have an account, sign in with your email address.
 						</p>
 					</div>
-					<div className='login-content flex'>
+					<form className='login-content flex form'>
 						<div className='form-control'>
 							<input
 								onChange={handleInput}
@@ -57,6 +101,9 @@ const Login: React.FC = () => {
 								name='email'
 								value={input.email}
 							/>
+							{isValidEmail === false && (
+								<small>Please Enter a Valid E-Mail</small>
+							)}
 						</div>
 						<div className='form-control'>
 							<input
@@ -66,10 +113,13 @@ const Login: React.FC = () => {
 								name='password'
 								value={input.password}
 							/>
+							{isValidPassword === false && (
+								<small>Please Enter a Valid Password</small>
+							)}
 						</div>
 						<Button handleClick={handleClick} text='sign in' />
 						{err && <small>Please Enter a Valid Email and Password</small>}
-					</div>
+					</form>
 				</div>
 				<div className='block-new-customer flex'>
 					<h2 className='title'>Don't have an account?</h2>

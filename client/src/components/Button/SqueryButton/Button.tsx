@@ -1,7 +1,7 @@
 import './Button.scss';
 interface btnTypes {
 	text: string;
-	handleClick?: () => void;
+	handleClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 const Button: React.FC<btnTypes> = ({ text, handleClick }) => {
 	return (
