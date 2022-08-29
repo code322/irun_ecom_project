@@ -69,6 +69,33 @@ const Register: React.FC = () => {
 		validateInput();
 	}, [input.name, input.email, input.confirmPassword, input.password]);
 
+	const validateOnClick = () => {
+		if (
+			isValidEmail &&
+			isValidPassword &&
+			isValidName &&
+			isValidConfirmPassword
+		) {
+			dispatch(register(input));
+		}
+		if (!isValidEmail) {
+			setIsValidEmail(false);
+		}
+		if (!isValidPassword) {
+			setIsValidPassword(false);
+		}
+		if (!isValidName) {
+			setIsValidName(false);
+		}
+		if (!isValidConfirmPassword) {
+			setIsValidConfirmPassword(false);
+		}
+	};
+	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		validateOnClick();
+	};
+
 	return (
 		<section className='register'>
 			<div className='bd-container register-container section flex'>
@@ -119,10 +146,7 @@ const Register: React.FC = () => {
 							<small>Password Did Not Match</small>
 						)}
 					</div>
-					<Button
-						handleClick={() => dispatch(register(input))}
-						text='create an account'
-					/>
+					<Button handleClick={handleClick} text='create an account' />
 				</div>
 			</div>
 		</section>
