@@ -4,6 +4,7 @@ import Button from '../../components/Button/SqueryButton/Button';
 import { login } from '../../redux/actions/auth/authActions';
 import { RootState } from '../../redux/rootReducer';
 import { useNavigate } from 'react-router-dom';
+import { validEmail as valid } from '../../utils/helpers';
 import './Login.scss';
 
 const Login: React.FC = () => {
@@ -14,6 +15,10 @@ const Login: React.FC = () => {
 	const [isValidEmail, setIsValidEmail] = useState<any>(null);
 	const [isValidPassword, setIsValidPassword] = useState<any>(null);
 	const [isAuth, setIsAuth] = useState<any>(null);
+	const [input, setInput] = useState<loginTypes>({
+		email: '',
+		password: '',
+	});
 
 	const nav = useNavigate();
 
@@ -21,11 +26,6 @@ const Login: React.FC = () => {
 	const { isLoggedIn, err } = useSelector(
 		(state: RootState) => state.authReducer
 	);
-
-	const [input, setInput] = useState<loginTypes>({
-		email: '',
-		password: '',
-	});
 
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
@@ -56,10 +56,7 @@ const Login: React.FC = () => {
 	};
 
 	// validate email
-	const regexp =
-		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-	let validEmail = regexp.test(input.email);
+	let validEmail = valid(input.email);
 	useEffect(() => {
 		const validateInput = () => {
 			//validate email
