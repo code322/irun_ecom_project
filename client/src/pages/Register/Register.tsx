@@ -81,6 +81,9 @@ const Register: React.FC = () => {
 							placeholder='Name *'
 							name='name'
 						/>
+						{isValidName === false && (
+							<small>Please Enter your Full Name</small>
+						)}
 					</div>
 					<div className='form-control'>
 						<input
@@ -89,6 +92,9 @@ const Register: React.FC = () => {
 							placeholder='Email *'
 							name='email'
 						/>
+						{isValidEmail === false && (
+							<small>Please Enter a Valid Email</small>
+						)}
 					</div>
 
 					<div className='form-control'>
@@ -98,6 +104,9 @@ const Register: React.FC = () => {
 							placeholder='Password *'
 							name='password'
 						/>
+						{isValidPassword === false && (
+							<small>Please Enter a Password</small>
+						)}
 					</div>
 					<div className='form-control'>
 						<input
@@ -106,6 +115,9 @@ const Register: React.FC = () => {
 							placeholder='Confirm Password *'
 							name='confirmPassword'
 						/>
+						{isValidConfirmPassword === false && (
+							<small>Password Did Not Match</small>
+						)}
 					</div>
 					<Button
 						handleClick={() => dispatch(register(input))}
