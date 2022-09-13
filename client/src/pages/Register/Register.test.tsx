@@ -38,5 +38,28 @@ describe('Register page', () => {
 			const conformPassword = screen.getByPlaceholderText('Confirm Password *');
 			expect(conformPassword).toBeInTheDocument();
 		});
+
+		it('has a create an account button', () => {
+			render(<Register />);
+			const button = screen.getByRole('button', {
+				name: 'create an account',
+			});
+			expect(button).toBeInTheDocument();
+		});
+
+		it('has password type for the password input field', () => {
+			render(<Register />);
+			const password = screen.getByPlaceholderText(
+				'Password *'
+			) as HTMLInputElement;
+			expect(password.type).toBe('password');
+		});
+		it('has password type for the confirm password input field', () => {
+			render(<Register />);
+			const password = screen.getByPlaceholderText(
+				'Confirm Password *'
+			) as HTMLInputElement;
+			expect(password.type).toBe('password');
+		});
 	});
 });
