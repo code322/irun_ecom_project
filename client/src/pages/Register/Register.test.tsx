@@ -12,5 +12,31 @@ describe('Register page', () => {
 
 			expect(header).toBeInTheDocument();
 		});
+
+		it('has name input field', () => {
+			render(<Register />);
+
+			const name = screen.getByPlaceholderText('Name *');
+			expect(name).toBeInTheDocument();
+		});
+
+		it('has email input field', () => {
+			render(<Register />);
+
+			const email = screen.getByPlaceholderText('Email *');
+			expect(email).toBeInTheDocument();
+		});
+		it('has password input field', () => {
+			render(<Register />);
+
+			const password = screen.getByPlaceholderText('Password *');
+			expect(password).toBeInTheDocument();
+		});
+		it('has conform password input field', () => {
+			render(<Register />);
+
+			const conformPassword = screen.getByPlaceholderText('Confirm Password *');
+			expect(conformPassword).toBeInTheDocument();
+		});
 	});
 });
