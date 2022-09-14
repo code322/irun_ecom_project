@@ -125,5 +125,19 @@ describe('Register page', () => {
 			const errorRepeatPassword = screen.queryByTestId('errorRepeatPassword');
 			expect(errorRepeatPassword).toBeInTheDocument();
 		});
+
+		it('displays error messages if the user clicks the create an account button while all input fields are empty', () => {
+			render(<Register />);
+			const button = screen.getByRole('button', { name: 'create an account' });
+			userEvent.click(button);
+			const errorName = screen.queryByTestId('errorName');
+			expect(errorName).toBeInTheDocument();
+			const errorPassword = screen.queryByTestId('errorPassword');
+			expect(errorPassword).toBeInTheDocument();
+			const errorEmail = screen.queryByTestId('errorEmail');
+			expect(errorEmail).toBeInTheDocument();
+			const errorRepeatPassword = screen.queryByTestId('errorRepeatPassword');
+			expect(errorRepeatPassword).toBeInTheDocument();
+		});
 	});
 });
