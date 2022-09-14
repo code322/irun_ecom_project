@@ -1,7 +1,42 @@
-import { render, screen } from '../../test/setup';
+import { render, screen, waitFor } from '../../test/setup';
 import Register from './Register';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
+type RequestBody = {
+	name: string;
+	email: string;
+	password: string;
+	confirmPassword: string;
+};
+let requestBody: RequestBody = {
+	name: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
+};
+
+const server = setupServer(
+	rest.post<RequestBody>(
+		'http://localhost:5000/api/auth/register',
+		(req, res, ctx) => {
+			requestBody = req.body;
+
+			return res(
+				ctx.status(401),
+				ctx.json({ message: 'Incorrect credentials' })
+			);
+		}
+	)
+);
+
+beforeEach(() => {
+	server.resetHandlers();
+});
+beforeAll(() => server.listen());
+afterAll(() => server.close());
 
 describe('Register page', () => {
 	describe('layout', () => {
