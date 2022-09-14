@@ -98,5 +98,12 @@ describe('Register page', () => {
 			const errorPassword = screen.queryByTestId('errorPassword');
 			expect(errorPassword).not.toBeInTheDocument();
 		});
+		it('displays an error message if the password is not valid', () => {
+			render(<Register />);
+			const passwordField = screen.getByPlaceholderText('Password *');
+			userEvent.type(passwordField, 'P4ssw');
+			const errorPassword = screen.queryByTestId('errorPassword');
+			expect(errorPassword).toBeInTheDocument();
+		});
 	});
 });
