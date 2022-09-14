@@ -115,5 +115,15 @@ describe('Register page', () => {
 			const errorRepeatPassword = screen.queryByTestId('errorRepeatPassword');
 			expect(errorRepeatPassword).not.toBeInTheDocument();
 		});
+		it('displays an error message if the passwords do not match', () => {
+			render(<Register />);
+			const passwordField = screen.getByPlaceholderText('Password *');
+			userEvent.type(passwordField, 'P4sswords');
+			const confirmPasswordField =
+				screen.getByPlaceholderText('Confirm Password *');
+			userEvent.type(confirmPasswordField, 'P4ssword');
+			const errorRepeatPassword = screen.queryByTestId('errorRepeatPassword');
+			expect(errorRepeatPassword).toBeInTheDocument();
+		});
 	});
 });
