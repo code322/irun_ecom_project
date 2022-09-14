@@ -109,7 +109,9 @@ const Register: React.FC = () => {
 							name='name'
 						/>
 						{isValidName === false && (
-							<small>Please Enter your Full Name</small>
+							<small data-testid='errorMessage'>
+								Please Enter your Full Name
+							</small>
 						)}
 					</div>
 					<div className='form-control'>
@@ -120,7 +122,9 @@ const Register: React.FC = () => {
 							name='email'
 						/>
 						{isValidEmail === false && (
-							<small>Please Enter a Valid Email</small>
+							<small data-testid='errorMessage'>
+								Please Enter a Valid Email
+							</small>
 						)}
 					</div>
 
@@ -132,7 +136,7 @@ const Register: React.FC = () => {
 							name='password'
 						/>
 						{isValidPassword === false && (
-							<small>Please Enter a Password</small>
+							<small data-testid='errorMessage'>Please Enter a Password</small>
 						)}
 					</div>
 					<div className='form-control'>
@@ -143,7 +147,7 @@ const Register: React.FC = () => {
 							name='confirmPassword'
 						/>
 						{isValidConfirmPassword === false && (
-							<small>Password Did Not Match</small>
+							<small data-testid='errorMessage'>Password Did Not Match</small>
 						)}
 					</div>
 					<Button handleClick={handleClick} text='create an account' />
