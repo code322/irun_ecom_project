@@ -62,4 +62,12 @@ describe('Register page', () => {
 			expect(password.type).toBe('password');
 		});
 	});
+
+	describe('interactions', () => {
+		it('should not display an error message if the create an account button is not click and the input fields are empty', () => {
+			render(<Register />);
+			const errorMessage = screen.queryByTestId('errorMessage');
+			expect(errorMessage).not.toBeInTheDocument();
+		});
+	});
 });
