@@ -1,6 +1,7 @@
 import { render, screen } from '../../test/setup';
 import Register from './Register';
 import '@testing-library/jest-dom/extend-expect';
+import userEvent from '@testing-library/user-event';
 
 describe('Register page', () => {
 	describe('layout', () => {
@@ -66,8 +67,29 @@ describe('Register page', () => {
 	describe('interactions', () => {
 		it('should not display an error message if the create an account button is not click and the input fields are empty', () => {
 			render(<Register />);
-			const errorMessage = screen.queryByTestId('errorMessage');
-			expect(errorMessage).not.toBeInTheDocument();
+			const errorName = screen.queryByTestId('errorName');
+			expect(errorName).not.toBeInTheDocument();
+			const errorPassword = screen.queryByTestId('errorPassword');
+			expect(errorPassword).not.toBeInTheDocument();
+			const errorEmail = screen.queryByTestId('errorEmail');
+			expect(errorEmail).not.toBeInTheDocument();
+			const errorRepeatPassword = screen.queryByTestId('errorRepeatPassword');
+			expect(errorRepeatPassword).not.toBeInTheDocument();
+		});
+
+		it('displays an error message if the user types an invalid email', () => {
+			render(<Register />);
+			const emailField = screen.getByPlaceholderText('Email *');
+			userEvent.type(emailField, 'myemail@');
+			const errorEmail = screen.queryByTestId('errorEmail');
+			expect(errorEmail).toBeInTheDocument();
+		});
+		it('doesnt not display an error message if the email is valid', () => {
+			render(<Register />);
+			const emailField = screen.getByPlaceholderText('Email *');
+			userEvent.type(emailField, 'myemail@mail.com');
+			const errorEmail = screen.queryByTestId('errorEmail');
+			expect(errorEmail).not.toBeInTheDocument();
 		});
 	});
 });
