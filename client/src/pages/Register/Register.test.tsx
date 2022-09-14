@@ -84,12 +84,19 @@ describe('Register page', () => {
 			const errorEmail = screen.queryByTestId('errorEmail');
 			expect(errorEmail).toBeInTheDocument();
 		});
-		it('doesnt not display an error message if the email is valid', () => {
+		it('does not display an error message if the email is valid', () => {
 			render(<Register />);
 			const emailField = screen.getByPlaceholderText('Email *');
 			userEvent.type(emailField, 'myemail@mail.com');
 			const errorEmail = screen.queryByTestId('errorEmail');
 			expect(errorEmail).not.toBeInTheDocument();
+		});
+		it('does not display an error message if the password is valid', () => {
+			render(<Register />);
+			const passwordField = screen.getByPlaceholderText('Password *');
+			userEvent.type(passwordField, 'P4ssword');
+			const errorPassword = screen.queryByTestId('errorPassword');
+			expect(errorPassword).not.toBeInTheDocument();
 		});
 	});
 });
