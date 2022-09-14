@@ -174,5 +174,29 @@ describe('Register page', () => {
 			const errorRepeatPassword = screen.queryByTestId('errorRepeatPassword');
 			expect(errorRepeatPassword).toBeInTheDocument();
 		});
+
+		it("sends the user's data to the backend after clicking the create an account button", async () => {
+			render(<Register />);
+			const name = screen.getByPlaceholderText('Name *');
+			const email = screen.getByPlaceholderText('Email *');
+			const password = screen.getByPlaceholderText('Password *');
+			const confirmPassword = screen.getByPlaceholderText('Confirm Password *');
+			const button = screen.getByRole('button', {
+				name: 'create an account',
+			});
+			userEvent.type(name, 'john doe');
+			userEvent.type(email, 'user100@gmail.com');
+			userEvent.type(password, 'password');
+			userEvent.type(confirmPassword, 'password');
+			userEvent.click(button);
+			await new Promise((resolve) => setTimeout(resolve, 500));
+
+			expect(requestBody).toEqual({
+				name: 'john doe',
+				email: 'user100@gmail.com',
+				password: 'password',
+				confirmPassword: 'password',
+			});
+		});
 	});
 });
