@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/SqueryButton/Button';
 import { register } from '../../redux/actions/auth/authActions';
 import './Register.scss';
 import { validEmail as valid } from '../../utils/helpers';
+import { RootState } from '../../redux/rootReducer';
 
 type inputType = {
 	name: string;
@@ -26,6 +27,7 @@ const Register: React.FC = () => {
 		boolean | null
 	>(null);
 	const dispatch = useDispatch();
+	const { err } = useSelector((state: RootState) => state.authReducer);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -36,6 +38,7 @@ const Register: React.FC = () => {
 	};
 
 	let validEmail = valid(input.email);
+	console.log(err);
 
 	useEffect(() => {
 		function validateInput() {
@@ -149,6 +152,7 @@ const Register: React.FC = () => {
 						)}
 					</div>
 					<Button handleClick={handleClick} text='create an account' />
+					{err && <small>Email is already registered</small>}
 				</div>
 			</div>
 		</section>
