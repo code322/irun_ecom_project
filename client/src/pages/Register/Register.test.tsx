@@ -22,11 +22,13 @@ const server = setupServer(
 	rest.post<RequestBody>(
 		'http://localhost:5000/api/auth/register',
 		(req, res, ctx) => {
+			if (req.body.email === 'user1@gmail.com') {
+				return res(ctx.status(400), ctx.json('Email is already registered'));
+			}
 			requestBody = req.body;
-
 			return res(
-				ctx.status(401),
-				ctx.json({ message: 'Incorrect credentials' })
+				ctx.status(200),
+				ctx.json({ message: 'account created successfully' })
 			);
 		}
 	)
@@ -100,8 +102,8 @@ describe('Register page', () => {
 	});
 
 	describe('interactions', () => {
-		let button: HTMLElement;
-		const setup = () => {
+		let button: any;
+		const setup = (userEmail: string = 'user100@gmail.com') => {
 			render(<Register />);
 			const name = screen.getByPlaceholderText('Name *');
 			const email = screen.getByPlaceholderText('Email *');
@@ -111,7 +113,7 @@ describe('Register page', () => {
 				name: 'create an account',
 			});
 			userEvent.type(name, 'john doe');
-			userEvent.type(email, 'user100@gmail.com');
+			userEvent.type(email, userEmail);
 			userEvent.type(password, 'password');
 			userEvent.type(confirmPassword, 'password');
 		};
@@ -201,6 +203,16 @@ describe('Register page', () => {
 				password: 'password',
 				confirmPassword: 'password',
 			});
+		});
+		it('displays an error if the user email already exists', async () => {
+			expect(
+				screen.queryByText('Email is already registered')
+			).not.toBeInTheDocument();
+			setup('user1@gmail.com');
+			userEvent.click(button);
+			const userExists = screen.queryByText('Email is already registered');
+			await new Promise((resolve) => setTimeout(resolve, 500));
+			expect(userExists).toBeInTheDocument();
 		});
 	});
 });
