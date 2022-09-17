@@ -102,7 +102,7 @@ describe('Register page', () => {
 	});
 
 	describe('interactions', () => {
-		let button: any;
+		let button: HTMLElement;
 		const setup = (userEmail: string = 'user100@gmail.com') => {
 			render(<Register />);
 			const name = screen.getByPlaceholderText('Name *');
@@ -205,13 +205,9 @@ describe('Register page', () => {
 			});
 		});
 		it('displays an error if the user email already exists', async () => {
-			expect(
-				screen.queryByText('Email is already registered')
-			).not.toBeInTheDocument();
 			setup('user1@gmail.com');
 			userEvent.click(button);
-			const userExists = screen.queryByText('Email is already registered');
-			await new Promise((resolve) => setTimeout(resolve, 500));
+			const userExists = await screen.findByText('Email is already registered');
 			expect(userExists).toBeInTheDocument();
 		});
 	});

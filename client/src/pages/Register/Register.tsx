@@ -38,7 +38,7 @@ const Register: React.FC = () => {
 	};
 
 	let validEmail = valid(input.email);
-	console.log(err);
+	localStorage.setItem('email', input.email);
 
 	useEffect(() => {
 		function validateInput() {
@@ -152,7 +152,7 @@ const Register: React.FC = () => {
 						)}
 					</div>
 					<Button handleClick={handleClick} text='create an account' />
-					{err && <small>Email is already registered</small>}
+					{err && <small>{err?.response?.data}</small>}
 				</div>
 			</div>
 		</section>
