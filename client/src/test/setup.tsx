@@ -3,6 +3,7 @@ import { render, RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { localStore } from '../redux/store';
+import '@testing-library/jest-dom';
 
 interface Props {
 	children?: ReactNode;
