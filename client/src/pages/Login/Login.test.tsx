@@ -1,4 +1,5 @@
 import { render, screen } from '../../test/setup';
+import '@testing-library/jest-dom/extend-expect';
 import Login from './Login';
 
 describe('Login page', () => {
@@ -21,6 +22,11 @@ describe('Login page', () => {
 			const password = screen.getByPlaceholderText('Password *');
 			expect(password).toBeInTheDocument();
 		});
+		it('should have password type for the password input field', () => {
+			render(<Login />);
+			const password = screen.getByPlaceholderText('Password *');
+			expect(password.type).toBe('password');
+		});
 
 		it('has a Sign In an account button', () => {
 			render(<Login />);
@@ -30,4 +36,6 @@ describe('Login page', () => {
 			expect(button).toBeInTheDocument();
 		});
 	});
+
+	describe('Interactions', () => {});
 });
