@@ -210,5 +210,12 @@ describe('Register page', () => {
 			const userExists = await screen.findByText('Email is already registered');
 			expect(userExists).toBeInTheDocument();
 		});
+
+		it('redirects to the cart page after successfully registering', async () => {
+			setup();
+
+			userEvent.click(button);
+			await waitFor(() => expect(window.location.pathname).toBe('/cart'));
+		});
 	});
 });

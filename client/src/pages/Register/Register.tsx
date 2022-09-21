@@ -5,6 +5,7 @@ import { register } from '../../redux/actions/auth/authActions';
 import './Register.scss';
 import { validEmail as valid } from '../../utils/helpers';
 import { RootState } from '../../redux/rootReducer';
+import { useNavigate } from 'react-router-dom';
 
 type inputType = {
 	name: string;
@@ -27,6 +28,7 @@ const Register: React.FC = () => {
 		boolean | null
 	>(null);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { err } = useSelector((state: RootState) => state.authReducer);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +82,7 @@ const Register: React.FC = () => {
 			isValidConfirmPassword
 		) {
 			dispatch(register(input));
+			navigate('/cart');
 		}
 		if (!isValidEmail) {
 			setIsValidEmail(false);
