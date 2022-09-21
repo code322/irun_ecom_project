@@ -10,5 +10,24 @@ describe('Login page', () => {
 			});
 			expect(header).toBeInTheDocument();
 		});
+		it('has email input field', () => {
+			render(<Login />);
+			const email = screen.getByPlaceholderText('Email *');
+			expect(email).toBeInTheDocument();
+		});
+
+		it('has password input field', () => {
+			render(<Login />);
+			const password = screen.getByPlaceholderText('Password *');
+			expect(password).toBeInTheDocument();
+		});
+
+		it('has a Sign In an account button', () => {
+			render(<Login />);
+			const button = screen.getByRole('button', {
+				name: /sign in/i,
+			});
+			expect(button).toBeInTheDocument();
+		});
 	});
 });
