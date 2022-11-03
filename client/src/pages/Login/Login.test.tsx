@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '../../test/setup';
+import { findByText, render, screen, waitFor } from '../../test/setup';
 import '@testing-library/jest-dom/extend-expect';
 import Login from './Login';
 import userEvent from '@testing-library/user-event';
@@ -19,16 +19,19 @@ let requestBody: RequestBody = {
   confirmPassword: '',
 };
 const server = setupServer(
-  rest.post<RequestBody>(
-    'http://localhost:5000/api/auth/login',
-    (req, res, ctx) => {
-      requestBody = req.body;
+  rest.post<RequestBody>(`${url}/api/auth/login`, (req, res, ctx) => {
+    if (req.body.email === 'user100@mail.com') {
       return res(
-        ctx.status(200),
-        ctx.json({ name: 'user', email: 'user@mail.com', id: '1234' })
+        ctx.status(400),
+        ctx.json({ message: 'Please Enter a Valid Email and Password' })
       );
     }
-  )
+    requestBody = req.body;
+    return res(
+      ctx.status(200),
+      ctx.json({ name: 'user', email: 'user@mail.com', id: '1234' })
+    );
+  })
 );
 
 beforeEach(() => {
@@ -76,16 +79,16 @@ describe('Login page', () => {
   describe('Interactions', () => {
     let email, password, button;
 
-    const setup = () => {
+    const setup = (userEmail: string) => {
       render(<Login />);
       email = screen.getByPlaceholderText('Email *');
       password = screen.getByPlaceholderText('Password *');
-      userEvent.type(email, 'user@mail.com');
+      userEvent.type(email, userEmail);
       userEvent.type(password, 'password');
     };
 
     it('sends email and password to the backend after clicking sign in button', async () => {
-      setup();
+      setup('user@mail.com');
       button = screen.getAllByRole('button', { name: /sign in/i })[0];
       userEvent.click(button);
       await waitFor(() => {
@@ -94,6 +97,16 @@ describe('Login page', () => {
           password: 'password',
         });
       });
+    });
+
+    it("displays error if the email doesn't not exist", async () => {
+      setup('user100@mail.com');
+      button = screen.getByRole('button', { name: /sign in/i });
+      userEvent.click(button);
+      let errorMessage = await screen.findByText(
+        'Please Enter a Valid Email and Password'
+      );
+      expect(errorMessage).toBeInTheDocument();
     });
   });
 });
