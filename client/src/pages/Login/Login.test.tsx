@@ -89,7 +89,7 @@ describe('Login page', () => {
 
     it('sends email and password to the backend after clicking sign in button', async () => {
       setup('user@mail.com');
-      button = screen.getAllByRole('button', { name: /sign in/i })[0];
+      button = screen.getByRole('button', { name: /sign in/i });
       userEvent.click(button);
       await waitFor(() => {
         expect(requestBody).toEqual({
@@ -99,7 +99,7 @@ describe('Login page', () => {
       });
     });
 
-    it("displays error if the email doesn't not exist", async () => {
+    it("displays error if the email doesn't exist", async () => {
       setup('user100@mail.com');
       button = screen.getByRole('button', { name: /sign in/i });
       userEvent.click(button);
@@ -107,6 +107,14 @@ describe('Login page', () => {
         'Please Enter a Valid Email and Password'
       );
       expect(errorMessage).toBeInTheDocument();
+    });
+
+    it('redirects to the cart page after successfully registering', async () => {
+      setup('user@mail.com');
+      button = screen.getByRole('button', { name: /sign in/i });
+
+      userEvent.click(button);
+      await waitFor(() => expect(window.location.pathname).toBe('/cart'));
     });
   });
 });
