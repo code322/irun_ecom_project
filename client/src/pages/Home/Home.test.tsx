@@ -15,5 +15,12 @@ describe('home page', () => {
       const productsList = screen.getByTestId('products-list');
       expect(productsList).toBeInTheDocument();
     });
+    it('has show now button', () => {
+      render(<Home />);
+      const shopNowButton = screen.getAllByRole('link', {
+        name: /shop now/i,
+      })[0];
+      expect(shopNowButton).toBeInTheDocument();
+    });
   });
 });
