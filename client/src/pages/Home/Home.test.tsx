@@ -5,10 +5,15 @@ import Home from './Home';
 
 describe('home page', () => {
   describe('layout', () => {
-    fit('renders the homepage', () => {
+    it('renders the homepage', () => {
       render(<Home />);
       const homePage = screen.getByTestId('home-page');
       expect(homePage).toBeInTheDocument();
+    });
+    it('has products list', () => {
+      render(<Home />);
+      const productsList = screen.getByTestId('products-list');
+      expect(productsList).toBeInTheDocument();
     });
   });
 });
