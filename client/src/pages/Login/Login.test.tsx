@@ -105,6 +105,13 @@ describe('Login page', () => {
       );
       expect(errorPassword).toBeInTheDocument();
     });
+    it('does not display an error message while typing if the password is valid', () => {
+      setup('abc@gmail.com', 'pass');
+      const errorPassword = screen.queryByText(
+        /Please Enter a Valid Password/i
+      );
+      expect(errorPassword).toBeInTheDocument();
+    });
 
     it('sends email and password to the backend after clicking sign in button', async () => {
       setup('user@mail.com');
