@@ -22,5 +22,18 @@ describe('home page', () => {
       })[0];
       expect(shopNowButton).toBeInTheDocument();
     });
+
+    describe('interactions', () => {
+      it('redirects to /shop when the shop now button is clicked', async () => {
+        render(<Home />);
+        const shopNowButton = screen.getAllByRole('link', {
+          name: /shop now/i,
+        })[0];
+        userEvent.click(shopNowButton);
+        await waitFor(() => {
+          expect(window.location.pathname).toBe('/shop');
+        });
+      });
+    });
   });
 });
