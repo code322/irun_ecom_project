@@ -11,7 +11,7 @@ export const productsData: responseBodyType[] = [
     inStock: 12,
     generalInfo: 'Free standard delivery on orders over $175. ',
     gender: 'male',
-    _id: '234id',
+    _id: '1id',
   },
   {
     title: 'nike revolution 5',
@@ -23,7 +23,7 @@ export const productsData: responseBodyType[] = [
     inStock: 12,
     generalInfo: 'Free standard delivery on orders over $175. ',
     gender: 'male',
-    _id: '234id',
+    _id: '2id',
   },
   {
     title: 'nike revolution 5',
@@ -35,7 +35,7 @@ export const productsData: responseBodyType[] = [
     inStock: 12,
     generalInfo: 'Free standard delivery on orders over $175. ',
     gender: 'male',
-    _id: '234id',
+    _id: '3id',
   },
   {
     title: 'nike revolution 5',
@@ -47,7 +47,7 @@ export const productsData: responseBodyType[] = [
     inStock: 12,
     generalInfo: 'Free standard delivery on orders over $175. ',
     gender: 'male',
-    _id: '234id',
+    _id: '4id',
   },
   {
     title: 'nike revolution 5',
@@ -59,7 +59,7 @@ export const productsData: responseBodyType[] = [
     inStock: 12,
     generalInfo: 'Free standard delivery on orders over $175. ',
     gender: 'male',
-    _id: '234id',
+    _id: '5id',
   },
   {
     title: 'nike revolution 5',
@@ -71,7 +71,7 @@ export const productsData: responseBodyType[] = [
     inStock: 12,
     generalInfo: 'Free standard delivery on orders over $175. ',
     gender: 'male',
-    _id: '234id',
+    _id: '6id',
   },
   {
     title: 'nike revolution 5',
@@ -83,7 +83,7 @@ export const productsData: responseBodyType[] = [
     inStock: 12,
     generalInfo: 'Free standard delivery on orders over $175. ',
     gender: 'male',
-    _id: '234id',
+    _id: '7id',
   },
   {
     title: 'nike revolution 5',
@@ -95,6 +95,6 @@ export const productsData: responseBodyType[] = [
     inStock: 12,
     generalInfo: 'Free standard delivery on orders over $175. ',
     gender: 'male',
-    _id: '234id',
+    _id: '8id',
   },
 ];

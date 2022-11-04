@@ -11,7 +11,7 @@ const Products: React.FC = () => {
   return (
     <ul
       data-testid='products-list'
-      aria-labelledby='products-heading'
+      aria-label='products-heading'
       className='product-list'
     >
       {products.map(({ title, price, gender, _id, images }) => {

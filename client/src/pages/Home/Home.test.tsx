@@ -8,9 +8,10 @@ import { product as responseBodyType } from '../../redux/actions/product/actionT
 import { productsData } from '../../test/dummyData';
 
 let responseData: responseBodyType[] = productsData;
+let url = 'http://localhost:5000';
 
 const server = setupServer(
-  rest.get<responseBodyType>('http://localhost:5000/', (req, res, ctx) => {
+  rest.get<responseBodyType>(`${url}/api/products`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(responseData));
   })
 );
@@ -39,17 +40,6 @@ describe('home page', () => {
         name: /shop now/i,
       })[0];
       expect(shopNowButton).toBeInTheDocument();
-    });
-    it('should render list of 5 fruits', () => {
-      render(<Home />);
-
-      const list = screen.getByRole('list', { name: 'products' });
-
-      const { getAllByRole } = within(list);
-
-      const items = getAllByRole('listitem');
-
-      expect(items.length).toBe(8);
     });
   });
 
