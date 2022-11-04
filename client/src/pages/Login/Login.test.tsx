@@ -79,12 +79,12 @@ describe('Login page', () => {
   describe('Interactions', () => {
     let email, password, button;
 
-    const setup = (userEmail: string) => {
+    const setup = (userEmail: string, userPassword: string = 'password') => {
       render(<Login />);
       email = screen.getByPlaceholderText('Email *');
       password = screen.getByPlaceholderText('Password *');
       userEvent.type(email, userEmail);
-      userEvent.type(password, 'password');
+      userEvent.type(password, userPassword);
     };
 
     it('displays an error message if the user types an invalid email', () => {
@@ -96,6 +96,14 @@ describe('Login page', () => {
       setup('abc@maiil.com');
       const errorEmail = screen.queryByText(/Please Enter a Valid E-Mail/i);
       expect(errorEmail).not.toBeInTheDocument();
+    });
+
+    it('displays an error message if the password is not valid', () => {
+      setup('abc@gmail.com', 'pass');
+      const errorPassword = screen.queryByText(
+        /Please Enter a Valid Password/i
+      );
+      expect(errorPassword).toBeInTheDocument();
     });
 
     it('sends email and password to the backend after clicking sign in button', async () => {
