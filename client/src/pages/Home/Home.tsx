@@ -14,7 +14,7 @@ const Home = () => {
     dispatch(getAllProducts());
   }, [dispatch]);
   return (
-    <section className='home'>
+    <section data-testid='home-page' className='home'>
       <main className='main-container'>
         <div className='bd-container main-info'>
           <h1 className='title'>flash sale 70% off</h1>
