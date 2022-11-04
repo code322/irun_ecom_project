@@ -87,10 +87,15 @@ describe('Login page', () => {
       userEvent.type(password, 'password');
     };
 
-    fit('displays an error message if the user types an invalid email', () => {
+    it('displays an error message if the user types an invalid email', () => {
       setup('abc@');
       const errorEmail = screen.queryByText(/Please Enter a Valid E-Mail/i);
       expect(errorEmail).toBeInTheDocument();
+    });
+    it('does not display an error message if the user types a valid email', () => {
+      setup('abc@maiil.com');
+      const errorEmail = screen.queryByText(/Please Enter a Valid E-Mail/i);
+      expect(errorEmail).not.toBeInTheDocument();
     });
 
     it('sends email and password to the backend after clicking sign in button', async () => {
