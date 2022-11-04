@@ -41,6 +41,16 @@ describe('home page', () => {
       })[0];
       expect(shopNowButton).toBeInTheDocument();
     });
+    it('should render list of 8 products', async () => {
+      render(<Home />);
+      const list = screen.getByRole('list', { name: /products/i });
+      let items: HTMLElement[] = [];
+      await waitFor(() => {
+        const { getAllByRole } = within(list);
+        items = getAllByRole('listitem');
+      });
+      expect(items.length).toBe(8);
+    });
   });
 
   describe('interactions', () => {
