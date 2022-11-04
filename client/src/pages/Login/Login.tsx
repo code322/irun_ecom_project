@@ -53,7 +53,10 @@ const Login: React.FC = () => {
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     validateOnClick();
-    nav('/cart');
+    if (isLoggedIn) {
+      // nav('/checkout');
+      console.log('is logged in', isLoggedIn);
+    }
   };
 
   // validate email
@@ -79,7 +82,7 @@ const Login: React.FC = () => {
 
   // validate password
 
-  console.log(isValidEmail);
+  console.log(isLoggedIn);
   return (
     <section className='login'>
       <div className='bd-container section login-container flex'>

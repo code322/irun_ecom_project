@@ -79,7 +79,10 @@ describe('Login page', () => {
   describe('Interactions', () => {
     let email, password, button;
 
-    const setup = (userEmail: string, userPassword: string = 'password') => {
+    const setup = (
+      userEmail: string = 'user@mail.com',
+      userPassword: string = 'password'
+    ) => {
       render(<Login />);
       email = screen.getByPlaceholderText('Email *');
       password = screen.getByPlaceholderText('Password *');
@@ -114,7 +117,7 @@ describe('Login page', () => {
     });
 
     it('sends email and password to the backend after clicking sign in button', async () => {
-      setup('user@mail.com');
+      setup();
       button = screen.getByRole('button', { name: /sign in/i });
       userEvent.click(button);
       await waitFor(() => {
@@ -133,14 +136,6 @@ describe('Login page', () => {
         'Please Enter a Valid Email and Password'
       );
       expect(errorMessage).toBeInTheDocument();
-    });
-
-    it('redirects to the cart page after successfully registering', async () => {
-      setup('user@mail.com');
-      button = screen.getByRole('button', { name: /sign in/i });
-
-      userEvent.click(button);
-      await waitFor(() => expect(window.location.pathname).toBe('/cart'));
     });
   });
 });
