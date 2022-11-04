@@ -1,7 +1,25 @@
-import { render, screen, waitFor } from '../../test/setup';
+import { render, screen, waitFor, within } from '../../test/setup';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import Home from './Home';
+import { setupServer } from 'msw/node';
+import { rest } from 'msw';
+import { product as responseBodyType } from '../../redux/actions/product/actionTypes';
+import { productsData } from '../../test/dummyData';
+
+let responseData: responseBodyType[] = productsData;
+
+const server = setupServer(
+  rest.get<responseBodyType>('http://localhost:5000/', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(responseData));
+  })
+);
+
+beforeEach(() => {
+  server.resetHandlers();
+});
+beforeAll(() => server.listen());
+afterAll(() => server.close());
 
 describe('home page', () => {
   describe('layout', () => {
@@ -22,17 +40,28 @@ describe('home page', () => {
       })[0];
       expect(shopNowButton).toBeInTheDocument();
     });
+    it('should render list of 5 fruits', () => {
+      render(<Home />);
 
-    describe('interactions', () => {
-      it('redirects to /shop when the shop now button is clicked', async () => {
-        render(<Home />);
-        const shopNowButton = screen.getAllByRole('link', {
-          name: /shop now/i,
-        })[0];
-        userEvent.click(shopNowButton);
-        await waitFor(() => {
-          expect(window.location.pathname).toBe('/shop');
-        });
+      const list = screen.getByRole('list', { name: 'products' });
+
+      const { getAllByRole } = within(list);
+
+      const items = getAllByRole('listitem');
+
+      expect(items.length).toBe(8);
+    });
+  });
+
+  describe('interactions', () => {
+    it('redirects to /shop when the shop now button is clicked', async () => {
+      render(<Home />);
+      const shopNowButton = screen.getAllByRole('link', {
+        name: /shop now/i,
+      })[0];
+      userEvent.click(shopNowButton);
+      await waitFor(() => {
+        expect(window.location.pathname).toBe('/shop');
       });
     });
   });

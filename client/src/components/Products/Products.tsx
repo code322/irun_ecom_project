@@ -9,7 +9,11 @@ const Products: React.FC = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.productsReducer);
   return (
-    <ul data-testid='products-list' className='product-list'>
+    <ul
+      data-testid='products-list'
+      aria-labelledby='products-heading'
+      className='product-list'
+    >
       {products.map(({ title, price, gender, _id, images }) => {
         return (
           <li className='product' key={_id}>
