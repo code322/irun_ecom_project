@@ -11,32 +11,30 @@ import Register from './pages/Register/Register';
 import './App.scss';
 import Checkout from './pages/Checkout/Checkout';
 const App = () => {
-	const isLoggedIn = useSelector(
-		(state: RootState) => state.authReducer.isLoggedIn
-	);
-	return (
-		<BrowserRouter>
-			<>
-				<Nav />
-				<Routes>
-					<Route path='/' element={<Home />} />
-					<Route path='/product/:id' element={<Product />} />
-					<Route path='/shop' element={<Shop />} />
-					<Route path='/cart' element={<Cart />} />
-					<Route path='/login' element={<Login />} />
-					<Route
-						path='/checkout'
-						element={isLoggedIn ? <Checkout /> : <Navigate to='/login' />}
-					/>
+  const isLoggedIn = useSelector(
+    (state: RootState) => state.authReducer.isLoggedIn
+  );
+  return (
+    <>
+      <Nav />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/product/:id' element={<Product />} />
+        <Route path='/shop' element={<Shop />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/login' element={<Login />} />
+        <Route
+          path='/checkout'
+          element={isLoggedIn ? <Checkout /> : <Navigate to='/login' />}
+        />
 
-					<Route
-						path='/register'
-						element={isLoggedIn ? <Navigate to='/' /> : <Register />}
-					/>
-				</Routes>
-			</>
-		</BrowserRouter>
-	);
+        <Route
+          path='/register'
+          element={isLoggedIn ? <Navigate to='/' /> : <Register />}
+        />
+      </Routes>
+    </>
+  );
 };
 
 export default App;

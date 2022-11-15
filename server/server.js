@@ -16,7 +16,7 @@ app.use('/api/products', productsRoute);
 app.use('/api/auth', usersRoutes);
 
 app.get('/', (req, res) => {
-	res.send('this is home route');
+  res.send('this is home route');
 });
 
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}`));
