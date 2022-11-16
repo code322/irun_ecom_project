@@ -35,7 +35,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      nav('/cart');
+      nav('/checkout');
     }
   }, [isLoggedIn, nav]);
 
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     validateOnClick();
     if (isLoggedIn) {
-      // nav('/checkout');
+      nav('/checkout');
       console.log('is logged in', isLoggedIn);
     }
   };

@@ -24,3 +24,6 @@ yarn-error.log*
 #files
 client.rest
 data
+
+.vscode/settings.json
+.vscode/settings.json
