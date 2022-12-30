@@ -6,21 +6,33 @@ import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import { product as responseBodyType } from '../../redux/actions/product/actionTypes';
 import { productsData } from '../../test/dummyData';
-
+import { getProduct } from '../../redux/actions/product/actionsFetchProducts';
+import { useDispatch } from 'react-redux';
 let responseData: responseBodyType[] = productsData;
 let url = 'http://localhost:5000';
+let ids: string = '';
 
 const server = setupServer(
-  rest.get<responseBodyType>(`${url}/api/products`, (req, res, ctx) => {
+  rest.get<responseBodyType[]>(`${url}/api/products`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(responseData));
+  }),
+  rest.get<any>(`${url}/api/products/:id`, (req, res, ctx) => {
+    console.log(req.params.id);
+    // return res(ctx.status(200), ctx.json(responseData[0]));
   })
 );
 
 beforeEach(() => {
   server.resetHandlers();
+  useDispatchMock.mockClear();
 });
 beforeAll(() => server.listen());
 afterAll(() => server.close());
+
+const reactRedux = { useDispatch };
+const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+
+const mockDispatch = jest.fn();
 
 describe('home page', () => {
   describe('layout', () => {
@@ -63,6 +75,10 @@ describe('home page', () => {
       await waitFor(() => {
         expect(window.location.pathname).toBe('/shop');
       });
+    });
+    it('should send post request to for a single product with id', () => {
+      let getItem = jest.fn();
+      mockDispatch(getProduct('123'));
     });
   });
 });

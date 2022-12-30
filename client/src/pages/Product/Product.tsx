@@ -10,45 +10,41 @@ import { RootState } from '../../redux/rootReducer';
 import './Product.scss';
 
 const Product = () => {
-	const dispatch = useDispatch();
-	const { id } = useParams();
-	const product = useSelector(
-		(state: RootState) => state.productReducer.product
-	);
+  const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(getProduct(id));
-	}, [id, dispatch]);
+  const product = useSelector(
+    (state: RootState) => state.productReducer.product
+  );
 
-	return (
-		<section className='product'>
-			<div className='bd-container product-container'>
-				<div className='product-wrapper'>
-					<div className='product-images'>
-						<ProductImages images={product.images} />
-					</div>
-					<div className='product-info-container'>
-						<p className=' title'>{product.title}</p>
-						<p className='text'>{product.details}</p>
-						<p className='text price'>{`$${product.price}`}</p>
-						<div className='btn-qty-container'>
-							<Button
-								text='Add To Bag'
-								handleClick={() => dispatch(addToCart(product))}
-							/>
-						</div>
-						<div className='general-info'>
-							<ProductInfo title='details' description={product.description} />
-							<ProductInfo
-								title='delivery and return'
-								description={product.generalInfo}
-							/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
+  return (
+    <section className='product'>
+      <div className='bd-container product-container'>
+        <div className='product-wrapper'>
+          <div className='product-images'>
+            <ProductImages images={product.images} />
+          </div>
+          <div className='product-info-container'>
+            <p className=' title'>{product.title}</p>
+            <p className='text'>{product.details}</p>
+            <p className='text price'>{`$${product.price}`}</p>
+            <div className='btn-qty-container'>
+              <Button
+                text='Add To Bag'
+                handleClick={() => dispatch(addToCart(product))}
+              />
+            </div>
+            <div className='general-info'>
+              <ProductInfo title='details' description={product.description} />
+              <ProductInfo
+                title='delivery and return'
+                description={product.generalInfo}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Product;

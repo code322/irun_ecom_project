@@ -16,7 +16,7 @@ const Products: React.FC = () => {
     >
       {products.map(({ title, price, gender, _id, images }) => {
         return (
-          <li className='product' key={_id}>
+          <li className='product' key={_id} aria-label='productsItem'>
             <Link
               onClick={() => dispatch(getProduct(_id))}
               to={`/product/${_id}`}

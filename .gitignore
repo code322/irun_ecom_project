@@ -27,3 +27,7 @@ data
 
 .vscode/settings.json
 .vscode/settings.json
+
+data.js
+seed.js
+db.js
