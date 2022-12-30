@@ -9,7 +9,7 @@ const login = async (req, res) => {
 
   try {
     // check if  the user exists
-    const user = await User.findOne({ email: email });
+    const user = await getUser(email);
     if (!user) return res.status(400).json('user does not exists');
 
     // validate the password
