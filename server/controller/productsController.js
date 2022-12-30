@@ -1,9 +1,15 @@
-const Product = require('../models/Product');
+const db = require('../config/db');
+// const Product = require('../models/Product');
 
 //Get all products
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({});
+    // const products = await Product.find({});
+    const [products] = await db.query('SELECT * FROM products');
+
+    for (const product of products) {
+      product.images = JSON.parse(product.images);
+    }
     res.json(products);
   } catch (err) {
     console.log(err);
