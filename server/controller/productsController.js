@@ -1,10 +1,8 @@
 const db = require('../config/db');
-// const Product = require('../models/Product');
 
 //Get all products
 const getAllProducts = async (req, res) => {
   try {
-    // const products = await Product.find({});
     const [products] = await db.query('SELECT * FROM products');
 
     for (const product of products) {
@@ -21,13 +19,16 @@ const getAllProducts = async (req, res) => {
 
 //Get single product
 const getProduct = async (req, res) => {
+  const id = req.params.id;
   try {
-    const product = await Product.findById(req.params.id);
-    res.json(product);
+    const [data] = await db.query('SELECT * FROM products WHERE _id=?', [id]);
+    let result = data[0];
+    result.images = JSON.parse(result.images);
+    res.status(200).json(result);
   } catch (err) {
-    console.log(error);
+    console.log(err);
     res.status(500).json({
-      message: error,
+      message: err,
     });
   }
 };
