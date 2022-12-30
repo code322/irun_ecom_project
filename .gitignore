@@ -29,5 +29,4 @@ data
 .vscode/settings.json
 
 data.js
-seed.js
 db.js
