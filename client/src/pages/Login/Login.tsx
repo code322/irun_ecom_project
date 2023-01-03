@@ -20,6 +20,8 @@ const Login: React.FC = () => {
     password: '',
   });
 
+  const [error, setError] = useState();
+
   const nav = useNavigate();
 
   const dispatch = useDispatch();
@@ -56,6 +58,13 @@ const Login: React.FC = () => {
     if (isLoggedIn) {
       nav('/checkout');
       console.log('is logged in', isLoggedIn);
+    } else if (err) {
+      setError(err);
+      // const {
+      //   response: { data },
+      // } = err;
+
+      console.log(err);
     }
   };
 
@@ -119,7 +128,7 @@ const Login: React.FC = () => {
               )}
             </div>
             <Button handleClick={handleClick} text='sign in' />
-            {err && <small>Please Enter a Valid Email and Password</small>}
+            {error && <small>Please Enter a Valid Email and Password</small>}
           </form>
         </div>
         <div className='block-new-customer flex'>
