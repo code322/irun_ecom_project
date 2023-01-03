@@ -5,6 +5,7 @@ import Button from '../../components/Button/SqueryButton/Button';
 import CartItem from '../../components/CartItem/CartItem';
 import { RootState } from '../../redux/rootReducer';
 import './Cart.scss';
+import { BiCart } from 'react-icons/bi';
 
 type checkoutTypes = {
   subTotal: number;
@@ -34,26 +35,31 @@ const Cart: React.FC = () => {
       total: total,
     });
   }, [subTotal, taxes, total]);
+  console.log(cart.length);
 
   return (
     <section className='cart'>
       <div className='bd-container cart-container section'>
-        <div className='cart-items'>
-          {cart.map((item) => {
-            return (
-              <CartItem
-                key={item._id}
-                title={item.title}
-                details={item.details}
-                price={item.price}
-                images={item.images}
-                qty={item.qty}
-                inStock={item.inStock}
-                _id={item._id}
-              />
-            );
-          })}
-        </div>
+        {cart.length < 1 ? (
+          <span className='cart-items empty-cart'>Your cart is empty!</span>
+        ) : (
+          <div className='cart-items'>
+            {cart.map((item) => {
+              return (
+                <CartItem
+                  key={item._id}
+                  title={item.title}
+                  details={item.details}
+                  price={item.price}
+                  images={item.images}
+                  qty={item.qty}
+                  inStock={item.inStock}
+                  _id={item._id}
+                />
+              );
+            })}
+          </div>
+        )}
         <div className='cart-checkout'>
           <div className='cart-checkout-container'>
             <p className='title'>summary</p>
