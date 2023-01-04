@@ -9,8 +9,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(
-  cookieParser());
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 5000;
 

@@ -35,19 +35,16 @@ const login = async (req, res) => {
     var expireTime = time + 1000 * 60 * 60 * 30; // 30 days
 
     res.cookie('accessToken', `Bearer ${accessToken}`, {
-      secure: true,
       httpOnly: true,
       sameSite: 'strict',
       maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
-      expiresIn: expireTime,
+      // expiresIn: expireTime,
     });
-
     res.cookie('refreshToken', `Bearer ${refreshToken}`, {
       httpOnly: true,
       sameSite: 'strict',
-      secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
-      expiresIn: expireTime,
+      // expiresIn: expireTime,
     });
 
     res.status(200).json({
@@ -112,26 +109,30 @@ const register = async (req, res) => {
 };
 
 // refresh token
-const refreshToken = async (req, res) => {
-  const refToken = req.body.refreshToken;
+const refreshToken = (req, res) => {
+  const cookies = req.cookies;
+  const refreshToken = cookies.refreshToken.split(' ')[1];
 
-  if (!refToken)
+  if (!refreshToken)
     return res
       .status(401)
       .json({ message: 'no refresh token. please login again' });
 
-  try {
-    // console.log(refToken);
-    const decoded = jwt.verify(refToken, process.env.REFRESH_TOKEN);
+  const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN);
+  if (decoded.exp * 1000 > new Date().getTime()) {
     req.user = decoded;
     const id = req.user._id;
     const accessToken = jwt.sign({ _id: id }, process.env.ACCESS_TOKEN, {
-      expiresIn: 30,
+      expiresIn: 60 * 30,
     });
-    await res.json({
-      accessToken: accessToken,
+    res.cookie('accessToken', `Bearer ${accessToken}`, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 30,
+      sameSite: 'strict',
     });
-  } catch (error) {
+
+    res.status(200).json({ message: 'access token created' });
+  } else {
     res.status(400).json({ message: 'token can not be verified' });
   }
 };
