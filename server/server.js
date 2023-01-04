@@ -1,12 +1,16 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const productsRoute = require('./routes/productsRoute');
 const usersRoutes = require('./routes/usersRoutes');
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+app.use(
+  cookieParser());
 
 const PORT = process.env.PORT || 5000;
 
