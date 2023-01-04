@@ -30,10 +30,6 @@ const login = async (req, res) => {
     if (!accessToken) return res.json('no token');
     if (!refreshToken) return res.json('no refreshToken');
 
-    var now = new Date();
-    var time = now.getTime();
-    var expireTime = time + 1000 * 60 * 60 * 30; // 30 days
-
     res.cookie('accessToken', `Bearer ${accessToken}`, {
       httpOnly: true,
       sameSite: 'strict',
@@ -83,20 +79,31 @@ const register = async (req, res) => {
     const accessToken = jwt.sign(
       { _id: newUser._id },
       process.env.ACCESS_TOKEN,
-      { expiresIn: 10 }
+      { expiresIn: 60 * 30 }
     );
     if (!accessToken) return res.json('no access token');
 
     const refreshToken = jwt.sign(
       { _id: newUser._id },
       process.env.REFRESH_TOKEN,
-      { expiresIn: 30 }
+      { expiresIn: '30d' }
     );
     if (!refreshToken) return res.json('no access token');
 
+    res.cookie('accessToken', `Bearer ${accessToken}`, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
+      // expiresIn: expireTime,
+    });
+    res.cookie('refreshToken', `Bearer ${refreshToken}`, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
+      // expiresIn: expireTime,
+    });
+
     res.json({
-      accessToken,
-      refreshToken,
       user: {
         id: newUser.id,
         name: newUser.name,
@@ -104,7 +111,7 @@ const register = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
+    res.status(401).json({ message: error.message });
   }
 };
 
