@@ -60,11 +60,6 @@ const Login: React.FC = () => {
       console.log('is logged in', isLoggedIn);
     } else if (err) {
       setError(err);
-      // const {
-      //   response: { data },
-      // } = err;
-
-      console.log(err);
     }
   };
 

@@ -35,7 +35,6 @@ const Cart: React.FC = () => {
       total: total,
     });
   }, [subTotal, taxes, total]);
-  console.log(cart.length);
 
   return (
     <section className='cart'>
