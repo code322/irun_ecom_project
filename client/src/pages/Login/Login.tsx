@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   const [error, setError] = useState();
 
   const nav = useNavigate();
-  let isLoggedIn = localStorage.getItem('isLoggedIn');
+  let isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')!);
 
   const dispatch = useDispatch();
   const { err } = useSelector((state: RootState) => state.authReducer);

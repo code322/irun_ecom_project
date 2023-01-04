@@ -94,13 +94,11 @@ const register = async (req, res) => {
       httpOnly: true,
       sameSite: 'strict',
       maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
-      // expiresIn: expireTime,
     });
     res.cookie('refreshToken', `Bearer ${refreshToken}`, {
       httpOnly: true,
       sameSite: 'strict',
       maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
-      // expiresIn: expireTime,
     });
 
     res.json({

@@ -31,7 +31,7 @@ export const authReducer = (
       };
     case actionTypes.LOGIN_SUCCESS:
     case actionTypes.REGISTER_SUCCESS:
-      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('isLoggedIn', JSON.stringify(true));
       return {
         ...state,
         loading: false,
@@ -49,7 +49,7 @@ export const authReducer = (
     case actionTypes.LOGIN_FAIL:
     case actionTypes.REGISTER_FAIL:
     case actionTypes.AUTH_FAIL:
-      localStorage.setItem('isLoggedIn', 'false');
+      localStorage.setItem('isLoggedIn', JSON.stringify(false));
 
       return {
         ...state,

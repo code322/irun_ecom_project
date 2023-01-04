@@ -11,9 +11,7 @@ import Register from './pages/Register/Register';
 import './App.scss';
 import Checkout from './pages/Checkout/Checkout';
 const App = () => {
-  const isLoggedIn = useSelector(
-    (state: RootState) => state.authReducer.isLoggedIn
-  );
+  const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')!);
   return (
     <>
       <Nav />
