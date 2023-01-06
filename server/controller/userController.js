@@ -94,11 +94,13 @@ const register = async (req, res) => {
       httpOnly: true,
       sameSite: 'strict',
       maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
+      secure: true,
     });
     res.cookie('refreshToken', `Bearer ${refreshToken}`, {
       httpOnly: true,
       sameSite: 'strict',
       maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
+      secure: true,
     });
 
     res.json({
@@ -116,7 +118,9 @@ const register = async (req, res) => {
 // refresh token
 const refreshToken = (req, res) => {
   const cookies = req.cookies;
+  console.log(cookies);
   const refreshToken = cookies.refreshToken.split(' ')[1];
+  console.log(refreshToken);
 
   if (!refreshToken)
     return res
@@ -134,6 +138,7 @@ const refreshToken = (req, res) => {
       httpOnly: true,
       maxAge: 1000 * 60 * 30,
       sameSite: 'strict',
+      secure: true,
     });
 
     res.status(200).json({ message: 'access token created' });

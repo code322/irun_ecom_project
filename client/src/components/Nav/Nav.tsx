@@ -10,7 +10,7 @@ import { logout } from '../../redux/actions/auth/authActions';
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isLoggedIn: string | null = localStorage.getItem('isLoggedIn');
+  const isLoggedIn: boolean = JSON.parse(localStorage.getItem('isLoggedIn')!);
   const {
     cartReducer: { cart },
   } = useSelector((state: RootState) => state);

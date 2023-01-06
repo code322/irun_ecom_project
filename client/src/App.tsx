@@ -1,17 +1,17 @@
 import Nav from './components/Nav/Nav';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
 import Cart from './pages/Cart/Cart';
 import Product from './pages/Product/Product';
-import { RootState } from './redux/rootReducer';
-import { useSelector } from 'react-redux';
+
 import Register from './pages/Register/Register';
 import './App.scss';
 import Checkout from './pages/Checkout/Checkout';
+import PrivateRoutes from './utils/PrivateRoutes';
+
 const App = () => {
-  const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')!);
   return (
     <>
       <Nav />
@@ -19,17 +19,13 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/product/:id' element={<Product />} />
         <Route path='/shop' element={<Shop />} />
-        <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login />} />
-        <Route
-          path='/checkout'
-          element={isLoggedIn ? <Checkout /> : <Navigate to='/login' />}
-        />
+        <Route path='/cart' element={<Cart />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path='/checkout' element={<Checkout />} />
+        </Route>
 
-        <Route
-          path='/register'
-          element={isLoggedIn ? <Navigate to='/' /> : <Register />}
-        />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </>
   );

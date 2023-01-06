@@ -12,18 +12,23 @@ const Login: React.FC = () => {
     email: string;
     password: string;
   };
+
+  let isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')!);
+  const nav = useNavigate();
+  useEffect(() => {
+    if (isLoggedIn) {
+      nav('/checkout');
+    }
+  }, [isLoggedIn]);
+
   const [isValidEmail, setIsValidEmail] = useState<any>(null);
   const [isValidPassword, setIsValidPassword] = useState<any>(null);
-  const [isAuth, setIsAuth] = useState<any>(null);
   const [input, setInput] = useState<loginTypes>({
     email: '',
     password: '',
   });
 
-  const [error, setError] = useState();
-
-  const nav = useNavigate();
-  let isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')!);
+  const [error, setError] = useState<boolean>();
 
   const dispatch = useDispatch();
   const { err } = useSelector((state: RootState) => state.authReducer);
@@ -33,12 +38,6 @@ const Login: React.FC = () => {
     const { value, name } = e.target;
     setInput({ ...input, [name]: value });
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      nav('/checkout');
-    }
-  }, [isLoggedIn, nav]);
 
   const validateOnClick = () => {
     if (isValidEmail && isValidPassword) {
@@ -56,9 +55,8 @@ const Login: React.FC = () => {
     validateOnClick();
     if (isLoggedIn) {
       nav('/checkout');
-      console.log('is logged in', isLoggedIn);
     } else if (err) {
-      setError(err);
+      setError(true);
     }
   };
 
@@ -85,7 +83,6 @@ const Login: React.FC = () => {
 
   // validate password
 
-  console.log(isLoggedIn);
   return (
     <section className='login'>
       <div className='bd-container section login-container flex'>
