@@ -66,7 +66,7 @@ export const authReducer = (
         err: action.payload,
       };
 
-    case actionTypes.LOGOUT:
+    case actionTypes.LOGOUT_SUCCESS:
       localStorage.setItem('isLoggedIn', JSON.stringify(false));
       return {
         ...state,
