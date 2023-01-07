@@ -49,6 +49,7 @@ export const authReducer = (
     case actionTypes.LOGIN_FAIL:
     case actionTypes.REGISTER_FAIL:
     case actionTypes.AUTH_FAIL:
+    case actionTypes.LOGOUT_FAIL:
       localStorage.setItem('isLoggedIn', JSON.stringify(false));
 
       return {

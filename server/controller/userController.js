@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModule');
 const db = require('../config/db');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // login user
 const login = async (req, res) => {
@@ -32,7 +34,7 @@ const login = async (req, res) => {
 
     res.cookie('accessToken', `Bearer ${accessToken}`, {
       httpOnly: true,
-      domain: process.env.DOMAIN,
+      // domain: process.env.DOMAIN,
       sameSite: 'none',
       secure: true,
       maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
@@ -41,7 +43,7 @@ const login = async (req, res) => {
     res.cookie('refreshToken', `Bearer ${refreshToken}`, {
       httpOnly: true,
       sameSite: 'none',
-      domain: process.env.DOMAIN,
+      // domain: process.env.DOMAIN,
       secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
       // expiresIn: expireTime,
@@ -120,14 +122,27 @@ const register = async (req, res) => {
 
 // logout user
 const logout = async (req, res) => {
-  const { cookies } = req.cookies;
+  const cookies = req.cookies;
   const refreshToken = cookies.refreshToken;
   if (!refreshToken)
     return res.json({ message: 'You already have logged out!' });
-
-  res.cookie('refreshToken', null);
-  res.cookie('accessToken', null);
-  res.status(200).json({ message: 'You have successfully logged out!' });
+  try {
+    res.cookie('refreshToken', null, {
+      maxAge: -1,
+      secure: true,
+      sameSite: 'none',
+      httpOnly: true,
+    });
+    res.cookie('accessToken', null, {
+      maxAge: -1,
+      secure: true,
+      sameSite: 'none',
+      httpOnly: true,
+    });
+    res.status(200).json({ message: 'You have successfully logged out!' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
 
 // refresh token

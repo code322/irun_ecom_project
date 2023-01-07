@@ -46,9 +46,12 @@ type actionAuthFail = {
   payload: any;
 };
 
-type actionLogout = {
+type actionLogoutSuccess = {
   type: actionTypes.LOGOUT_SUCCESS;
-  payload: userData;
+};
+type actionLogoutFail = {
+  type: actionTypes.LOGOUT_FAIL;
+  payload: any;
 };
 
 export type Actions =
@@ -58,4 +61,5 @@ export type Actions =
   | actionRegisterFail
   | actionAuthFail
   | actionUserLoading
-  | actionLogout;
+  | actionLogoutSuccess
+  | actionLogoutFail;

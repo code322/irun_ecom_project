@@ -43,5 +43,10 @@ export const logout = () => async (dispatch: Dispatch) => {
     dispatch({
       type: actionTypes.LOGOUT_SUCCESS,
     });
-  } catch (error) {}
+  } catch (error) {
+    dispatch({
+      type: actionTypes.LOGIN_FAIL,
+      payload: error,
+    });
+  }
 };
