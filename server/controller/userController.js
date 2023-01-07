@@ -32,17 +32,20 @@ const login = async (req, res) => {
 
     res.cookie('accessToken', `Bearer ${accessToken}`, {
       httpOnly: true,
-      sameSite: 'strict',
+      domain: process.env.DOMAIN,
+      sameSite: 'none',
+      secure: true,
       maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
       // expiresIn: expireTime,
     });
     res.cookie('refreshToken', `Bearer ${refreshToken}`, {
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: 'none',
+      domain: process.env.DOMAIN,
+      secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
       // expiresIn: expireTime,
     });
-
     res.status(200).json({
       user: {
         email: user.email,
@@ -52,7 +55,7 @@ const login = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json(error);
+    res.status(400).json({ message: error.message });
   }
 };
 

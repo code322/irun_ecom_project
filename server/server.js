@@ -6,8 +6,15 @@ const productsRoute = require('./routes/productsRoute');
 const usersRoutes = require('./routes/usersRoutes');
 
 const app = express();
+const origin = process.env.ORIGIN;
 
-app.use(cors());
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
