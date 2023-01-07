@@ -118,10 +118,21 @@ const register = async (req, res) => {
   }
 };
 
+// logout user
+const logout = async (req, res) => {
+  const { cookies } = req.cookies;
+  const refreshToken = cookies.refreshToken;
+  if (!refreshToken)
+    return res.json({ message: 'You already have logged out!' });
+
+  res.cookie('refreshToken', null);
+  res.cookie('accessToken', null);
+  res.status(200).json({ message: 'You have successfully logged out!' });
+};
+
 // refresh token
 const refreshToken = (req, res) => {
   const cookies = req.cookies;
-  console.log(cookies);
   const refreshToken = cookies.refreshToken.split(' ')[1];
   console.log(refreshToken);
 
@@ -150,7 +161,7 @@ const refreshToken = (req, res) => {
   }
 };
 
-module.exports = { login, register, refreshToken };
+module.exports = { login, register, refreshToken, logout };
 
 const getUser = async (email) => {
   const [user] = await db.query('SELECT * FROM Users WHERE email=?', [email]);
