@@ -34,7 +34,7 @@ const login = async (req, res) => {
 
     res.cookie('accessToken', `Bearer ${accessToken}`, {
       httpOnly: true,
-      // domain: process.env.DOMAIN,
+      domain: process.env.COOKIES_DOMAIN,
       sameSite: 'none',
       secure: true,
       maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
@@ -43,7 +43,7 @@ const login = async (req, res) => {
     res.cookie('refreshToken', `Bearer ${refreshToken}`, {
       httpOnly: true,
       sameSite: 'none',
-      // domain: process.env.DOMAIN,
+      domain: process.env.COOKIES_DOMAIN,
       secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
       // expiresIn: expireTime,
@@ -79,17 +79,15 @@ const register = async (req, res) => {
     const values = [name, email, hashedPassword];
 
     await db.query(sqlInsert, values);
-    let newUser = await getUser(email);
+    let user = await getUser(email);
 
-    const accessToken = jwt.sign(
-      { _id: newUser._id },
-      process.env.ACCESS_TOKEN,
-      { expiresIn: 60 * 30 }
-    );
+    const accessToken = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN, {
+      expiresIn: 60 * 30,
+    });
     if (!accessToken) return res.json('no access token');
 
     const refreshToken = jwt.sign(
-      { _id: newUser._id },
+      { _id: user._id },
       process.env.REFRESH_TOKEN,
       { expiresIn: '30d' }
     );
@@ -97,22 +95,24 @@ const register = async (req, res) => {
 
     res.cookie('accessToken', `Bearer ${accessToken}`, {
       httpOnly: true,
-      sameSite: 'strict',
-      maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
+      domain: process.env.COOKIES_DOMAIN,
+      sameSite: 'none',
       secure: true,
+      maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
+      // expiresIn: expireTime,
     });
     res.cookie('refreshToken', `Bearer ${refreshToken}`, {
       httpOnly: true,
-      sameSite: 'strict',
-      maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
+      sameSite: 'none',
+      domain: process.env.COOKIES_DOMAIN,
       secure: true,
+      maxAge: 1000 * 60 * 60 * 24 * 30, // Units are in milliseconds. Sets to expire in 30 days
     });
-
-    res.json({
+    res.status(200).json({
       user: {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
+        email: user.email,
+        name: user.name,
+        id: user._id,
       },
     });
   } catch (error) {
@@ -132,12 +132,14 @@ const logout = async (req, res) => {
       secure: true,
       sameSite: 'none',
       httpOnly: true,
+      domain: process.env.COOKIES_DOMAIN,
     });
     res.cookie('accessToken', null, {
       maxAge: -1,
       secure: true,
       sameSite: 'none',
       httpOnly: true,
+      domain: process.env.COOKIES_DOMAIN,
     });
     res.status(200).json({ message: 'You have successfully logged out!' });
   } catch (error) {
@@ -165,9 +167,10 @@ const refreshToken = (req, res) => {
     });
     res.cookie('accessToken', `Bearer ${accessToken}`, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 30,
-      sameSite: 'strict',
+      domain: process.env.COOKIES_DOMAIN,
+      sameSite: 'none',
       secure: true,
+      maxAge: 1000 * 60 * 30, // Units are in milliseconds. Sets to expire in 30 mins
     });
 
     res.status(200).json({ message: 'access token created' });

@@ -7,7 +7,7 @@ import { validEmail as valid } from '../../utils/helpers';
 import { RootState } from '../../redux/rootReducer';
 import { useNavigate } from 'react-router-dom';
 
-type inputType = {
+export type inputType = {
   name: string;
   email: string;
   password: string;

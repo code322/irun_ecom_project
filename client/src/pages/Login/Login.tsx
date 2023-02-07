@@ -7,12 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { validEmail as valid } from '../../utils/helpers';
 import './Login.scss';
 
+export type loginTypes = {
+  email: string;
+  password: string;
+};
 const Login: React.FC = () => {
-  type loginTypes = {
-    email: string;
-    password: string;
-  };
-
   let isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')!);
   const nav = useNavigate();
   useEffect(() => {
@@ -21,8 +20,8 @@ const Login: React.FC = () => {
     }
   }, [isLoggedIn]);
 
-  const [isValidEmail, setIsValidEmail] = useState<any>(null);
-  const [isValidPassword, setIsValidPassword] = useState<any>(null);
+  const [isValidEmail, setIsValidEmail] = useState<boolean | null>(null);
+  const [isValidPassword, setIsValidPassword] = useState<boolean | null>(null);
   const [input, setInput] = useState<loginTypes>({
     email: '',
     password: '',

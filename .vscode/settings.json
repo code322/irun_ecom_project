@@ -2,9 +2,10 @@
   "editor.tabSize": 2,
   "prettier.tabWidth": 2,
   "editor.stickyTabStops": false,
-  "editor.fontSize": 12,
+  "editor.fontSize": 15,
   "gitlens.views.tags.branches.layout": "list",
   "screencastMode.fontSize": 56,
   "editor.renderWhitespace": "selection",
-  "files.trimTrailingWhitespace": true
+  "files.trimTrailingWhitespace": true,
+  "markdown.preview.lineHeight": 1.6
 }

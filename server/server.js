@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const productsRoute = require('./routes/productsRoute');
 const usersRoutes = require('./routes/usersRoutes');
 
 const app = express();
-const origin = process.env.ORIGIN;
 
 const corsOptions = {
   origin: '*',
