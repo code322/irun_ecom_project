@@ -41,14 +41,12 @@ describe('home page', () => {
       })[0];
       expect(shopNowButton).toBeInTheDocument();
     });
-    it('should render list of 8 products', async () => {
+
+    it('should have 8 products in the list', async () => {
       render(<Home />);
-      const list = screen.getByRole('list', { name: /products/i });
-      let items: HTMLElement[] = [];
-      await waitFor(() => {
-        const { getAllByRole } = within(list);
-        items = getAllByRole('listitem');
-      });
+      let list = screen.getByTestId('products-list');
+      const { findAllByRole } = within(list);
+      const items: HTMLElement[] = await findAllByRole('listitem');
       expect(items.length).toBe(8);
     });
   });
