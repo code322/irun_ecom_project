@@ -20,12 +20,6 @@ let requestBody: RequestBody = {
 };
 const server = setupServer(
   rest.post<RequestBody>(`${url}/api/auth/login`, (req, res, ctx) => {
-    if (req.body.email === 'user100@mail.com') {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'Please Enter a Valid Email and Password' })
-      );
-    }
     requestBody = req.body;
     return res(
       ctx.status(200),
@@ -129,7 +123,26 @@ describe('Login page', () => {
     });
 
     it("displays error if the email doesn't exist", async () => {
+      server.use(
+        rest.post<any>(`${url}/api/auth/login`, (req, res, ctx) => {
+          return res(ctx.status(400));
+        })
+      );
       setup('user100@mail.com');
+      button = screen.getByRole('button', { name: /sign in/i });
+      userEvent.click(button);
+      let errorMessage = await screen.findByText(
+        'Please Enter a Valid Email and Password'
+      );
+      expect(errorMessage).toBeInTheDocument();
+    });
+    it('displays error if the password is invalid', async () => {
+      server.use(
+        rest.post<any>(`${url}/api/auth/login`, (req, res, ctx) => {
+          return res(ctx.status(400));
+        })
+      );
+      setup('newpassword');
       button = screen.getByRole('button', { name: /sign in/i });
       userEvent.click(button);
       let errorMessage = await screen.findByText(
