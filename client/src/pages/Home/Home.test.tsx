@@ -62,5 +62,17 @@ describe('home page', () => {
         expect(window.location.pathname).toBe('/shop');
       });
     });
+    it('should redirect to a product page when an item is clicked', async () => {
+      render(<Home />);
+      let list = screen.getByTestId('products-list');
+      const { findAllByRole } = within(list);
+      const links = await findAllByRole('link');
+      userEvent.click(links[1]);
+      await waitFor(() => {
+        expect(window.location.pathname).toBe(
+          `/product/${productsData[1]._id}`
+        );
+      });
+    });
   });
 });
