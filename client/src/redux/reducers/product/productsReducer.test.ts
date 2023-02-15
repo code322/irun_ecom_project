@@ -29,4 +29,20 @@ describe('products reducer', () => {
 
     expect(result).toEqual({ loading: false, products: [] });
   });
+
+  it('should fetch the products data', async () => {
+    const dispatch = jest.fn();
+    const state = initialState;
+    const thunk = getAllProducts();
+
+    await thunk(dispatch);
+
+    const { calls } = dispatch.mock;
+
+    expect(calls).toHaveLength(2);
+    expect(calls[0][0].type).toEqual('GET_ALL_PRODUCTS_LOADING');
+    expect(calls[1][0].type).toEqual('GET_ALL_PRODUCTS_SUCCESS');
+    expect(calls[1][0].payload).toEqual(productsData);
+    // console.log(dispatch.mock.calls[1][0].type);
+  });
 });
