@@ -54,7 +54,7 @@ describe('products reducer with a mock dispatch function', () => {
     // console.log(dispatch.mock.calls[1][0].type);
   });
   it('should return err message if fetching fails', async () => {
-    let errorMessage: 'no products found';
+    let errorMessage = 'no products found';
     server.use(
       rest.get(`${url}/api/products`, (req, res, ctx) => {
         return res(ctx.status(400), ctx.json({ message: errorMessage }));
@@ -71,9 +71,7 @@ describe('products reducer with a mock dispatch function', () => {
     expect(calls).toHaveLength(2);
     expect(calls[0][0].type).toEqual('GET_ALL_PRODUCTS_LOADING');
     expect(calls[1][0].type).toEqual('GET_ALL_PRODUCTS_FAIL');
-    expect(calls[1][0].payload.response.data.message).toEqual(
-      'GET_ALL_PRODUCTS_FAIL'
-    );
+    expect(calls[1][0].payload.response.data.message).toEqual(errorMessage);
   });
 });
 
