@@ -1,3 +1,4 @@
+import { getProduct } from './../../actions/product/actionsFetchProducts';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import { initialState as initial, productReducer } from './productReducer';
@@ -7,7 +8,7 @@ import { productsData } from '../../../test/dummyData';
 
 let url = 'http://localhost:5000';
 const server = setupServer(
-  rest.get(`${url}/api/product/:id`, (req, res, ctx) => {
+  rest.get(`${url}/api/products/:id`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(productsData[1]));
   })
 );
@@ -25,5 +26,15 @@ describe('product reducer', () => {
     const action = { type: '' };
     const result = productReducer(initialState, action as any);
     expect(result).toEqual(initial);
+  });
+  it('should fetch product data', async () => {
+    const store = mockStore();
+    // const store = mockStore({ loading: false, product: productsData[0] });
+    const actions = store.getActions();
+    await store.dispatch(getProduct('2id') as any);
+    expect(actions).toHaveLength(2);
+    expect(actions[0].type).toEqual('GET_PRODUCT_LOADING');
+    expect(actions[1].type).toEqual('GET_PRODUCT_SUCCESS');
+    expect(actions[1].payload).toEqual(productsData[1]);
   });
 });
