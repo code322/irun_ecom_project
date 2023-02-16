@@ -85,4 +85,21 @@ describe('products store with mocked redux store', () => {
     expect(actions[0].type).toEqual('GET_ALL_PRODUCTS_LOADING');
     expect(actions[1].type).toEqual('GET_ALL_PRODUCTS_SUCCESS');
   });
+  it('should return err message if fetching fails', async () => {
+    let error: 'no products found';
+
+    server.use(
+      rest.get(`${url}/api/products`, (req, res, ctx) => {
+        return res(ctx.status(400), ctx.json({ message: error }));
+      })
+    );
+    const store = mockStore({ loading: false, products: [] });
+    await store.dispatch(getAllProducts() as any);
+
+    const actions = store.getActions();
+
+    expect(actions).toHaveLength(2);
+    expect(actions[0].type).toEqual('GET_ALL_PRODUCTS_LOADING');
+    expect(actions[1].type).toEqual('GET_ALL_PRODUCTS_FAIL');
+  });
 });
