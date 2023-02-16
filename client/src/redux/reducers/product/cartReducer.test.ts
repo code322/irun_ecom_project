@@ -19,4 +19,17 @@ describe('cart reducer', () => {
     };
     expect(result).toEqual(state);
   });
+  it('should increase the quantity of product', () => {
+    let state = initialState;
+    let action = { type: actionTypes.ADD_TO_CART, payload: productsData[1] };
+    let result = cartReducer(state, action as any);
+    state = {
+      cart: [{ ...productsData[1], qty: 1 }],
+    };
+    result = cartReducer(state, action as any);
+    state = {
+      cart: [{ ...productsData[1], qty: 2 }],
+    };
+    expect(result).toEqual(state);
+  });
 });
