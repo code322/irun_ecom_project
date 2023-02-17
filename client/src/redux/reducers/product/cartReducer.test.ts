@@ -32,4 +32,17 @@ describe('cart reducer', () => {
     };
     expect(result).toEqual(state);
   });
+  it('should remove the item from the cart', () => {
+    let state = {
+      cart: [{ ...productsData[1], qty: 1 }],
+    };
+
+    let action = {
+      type: actionTypes.REMOVE_FROM_CART,
+      payload: '2id',
+    };
+    let result = cartReducer(state, action as any);
+
+    expect(result).toEqual({ cart: [] });
+  });
 });
