@@ -45,4 +45,20 @@ describe('cart reducer', () => {
 
     expect(result).toEqual({ cart: [] });
   });
+  it('should adjust the item quantity', () => {
+    let state = {
+      cart: [{ ...productsData[1], qty: 1 }],
+    };
+
+    let action = {
+      type: actionTypes.ADJUST_QTY_CART,
+      payload: { id: '2id', qty: 2 },
+    };
+    let result = cartReducer(state, action as any);
+
+    state = {
+      cart: [{ ...productsData[1], qty: 2 }],
+    };
+    expect(result).toEqual(state);
+  });
 });
