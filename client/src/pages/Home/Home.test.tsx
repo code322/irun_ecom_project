@@ -6,9 +6,10 @@ import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import { product as responseBodyType } from '../../redux/actions/product/actionTypes';
 import { productsData } from '../../test/dummyData';
+import { server_url } from '../../utils/api';
 
 let responseData: responseBodyType[] = productsData;
-let url = 'http://localhost:5000';
+let url = server_url;
 
 const server = setupServer(
   rest.get<responseBodyType>(`${url}/api/products`, (req, res, ctx) => {
@@ -19,7 +20,7 @@ const server = setupServer(
 beforeEach(() => {
   server.resetHandlers();
 });
-beforeAll(() => server.listen());
+beforeAll(() => server.listen({ onUnhandledRequest: 'bypass' }));
 afterAll(() => server.close());
 
 describe('home page', () => {

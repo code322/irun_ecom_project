@@ -7,7 +7,7 @@ const getAllProducts = async (req, res) => {
     res.json(products);
   } catch (err) {
     console.log(err);
-    res.status(500).json({
+    res.status(400).json({
       message: err,
     });
   }
@@ -19,9 +19,9 @@ const getProduct = async (req, res) => {
     const product = await Product.findById(req.params.id);
     res.json(product);
   } catch (err) {
-    console.log(error);
+    console.log(err);
     res.status(500).json({
-      message: error,
+      message: err,
     });
   }
 };
