@@ -41,7 +41,7 @@ describe('products reducer with a mock dispatch function', () => {
     const state: interfaceState = { loading: false, products: productsData };
     const thunk = getAllProducts();
 
-    await thunk(dispatch, () => state, undefined);
+    await thunk(dispatch);
 
     const { calls } = dispatch.mock;
 

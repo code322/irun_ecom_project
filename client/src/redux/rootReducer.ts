@@ -5,10 +5,10 @@ import { productReducer } from './reducers/product/productReducer';
 import { combineReducers } from 'redux';
 
 export const rootReducer = combineReducers({
-	productsReducer,
-	productReducer,
-	cartReducer,
-	authReducer,
+  productsReducer,
+  productReducer,
+  cartReducer,
+  authReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
