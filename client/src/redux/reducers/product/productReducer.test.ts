@@ -1,3 +1,4 @@
+import { server_url } from './../../../utils/api';
 import { getProduct } from './../../actions/product/actionsFetchProducts';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
@@ -6,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { productsData } from '../../../test/dummyData';
 
-let url = 'http://localhost:5000';
+let url = server_url;
 const server = setupServer(
   rest.get(`${url}/api/products/:id`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(productsData[1]));
@@ -52,6 +53,6 @@ describe('product reducer', () => {
     expect(actions[0].type).toEqual('GET_PRODUCT_LOADING');
     expect(actions[1].type).toEqual('GET_PRODUCT_FAIL');
     expect(actions[1].payload.response.data.message).toEqual(errorMessage);
-    console.log(actions[1].payload.response.data);
+    // console.log(actions[1].payload.response.data);
   });
 });
