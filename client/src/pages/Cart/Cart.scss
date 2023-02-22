@@ -1,8 +1,14 @@
 .cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 70%;
+
   .cart-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-direction: column;
+    justify-content: flex-start;
     gap: 40px;
     width: 100%;
     .cart-items {
