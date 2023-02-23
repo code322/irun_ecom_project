@@ -1,4 +1,30 @@
 .filter-by-container {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  input {
+    border: 1px solid #999;
+    padding: 5px;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  .price-range-container {
+    display: flex;
+    flex-direction: column;
+
+    .ranges-input-container {
+      display: flex;
+      gap: 20px;
+
+      input {
+        max-width: 100px;
+        outline: none;
+        border: 1px solid #999;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+    }
+  }
 }

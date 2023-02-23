@@ -4,14 +4,17 @@ import './FilterBy.scss';
 const FilterBy: FC = () => {
   return (
     <div className='filter-by-container'>
-      <input type='text' placeholder='Search By Item Name' />
-      <div>
+      <input type='text' placeholder='Search...' />
+      <div className='price-range-container'>
         <span>Price Range</span>
-        <input type='text' placeholder='min' />
-        <input type='text' placeholder='max' />
+        <div className='ranges-input-container'>
+          <input min={0} max={1000} type='number' placeholder='min' />
+          <input min={0} max={1000} type='number' placeholder='max' />
+        </div>
       </div>
       <div>
-        <span>Filter by Gender: </span>
+        <span>Gender: </span>
+        <br />
         <select name='' id=''>
           <option value='All'>All</option>
           <option value='Male'>Male</option>
