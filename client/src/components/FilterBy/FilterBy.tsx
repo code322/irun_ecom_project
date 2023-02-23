@@ -1,15 +1,22 @@
 import { FC } from 'react';
 import './FilterBy.scss';
-
-const FilterBy: FC = () => {
+interface Props {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+const FilterBy: FC<Props> = (props: Props) => {
+  const { search, setSearch } = props;
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+  }
   return (
     <div className='filter-by-container'>
-      <input type='text' placeholder='Search...' />
+      <input onChange={handleSearch} type='text' placeholder='Search...' />
       <div className='price-range-container'>
         <span>Price Range</span>
         <div className='ranges-input-container'>
           <input min={0} max={1000} type='number' placeholder='min' />
-          <input min={0} max={1000} type='number' placeholder='max' />
+          <input min={80} max={1000} type='number' placeholder='max' />
         </div>
       </div>
       <div>
