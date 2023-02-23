@@ -1,14 +1,17 @@
 import { FC } from 'react';
 import './FilterBy.scss';
+import { priceRangeType } from '../../pages/Shop/Shop';
 interface Props {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setPriceRange: React.Dispatch<React.SetStateAction<priceRangeType>>;
 }
 const FilterBy: FC<Props> = (props: Props) => {
-  const { search, setSearch } = props;
+  const { setPriceRange, setSearch } = props;
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
   }
+
   return (
     <div className='filter-by-container'>
       <input onChange={handleSearch} type='text' placeholder='Search...' />

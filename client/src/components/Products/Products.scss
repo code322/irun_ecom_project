@@ -1,6 +1,7 @@
 @use '../../index.scss';
 .product-list {
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  // grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: 1fr;
   gap: 10px;
   display: grid;
   list-style: none;
@@ -33,5 +34,22 @@
       color: rgba(0, 0, 0, 0.568);
       text-transform: capitalize;
     }
+  }
+}
+
+@media (min-width: 550px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 800px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (min-width: 900px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
