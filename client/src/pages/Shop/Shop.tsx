@@ -8,10 +8,14 @@ export type priceRangeType = {
 };
 const Shop = () => {
   const [search, setSearch] = useState<string>('');
+  const [gender, setGender] = useState<string>('all');
+
   const [priceRange, setPriceRange] = useState<priceRangeType>({
     min: 0,
     max: 80,
   });
+
+  console.log(gender);
 
   return (
     <section>
@@ -20,8 +24,9 @@ const Shop = () => {
           search={search}
           setSearch={setSearch}
           setPriceRange={setPriceRange}
+          setGender={setGender}
         />
-        <Products search={search} />
+        <Products gender={gender} search={search} />
       </div>
     </section>
   );

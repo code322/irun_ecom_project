@@ -5,11 +5,17 @@ interface Props {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   setPriceRange: React.Dispatch<React.SetStateAction<priceRangeType>>;
+  setGender: React.Dispatch<React.SetStateAction<string>>;
 }
 const FilterBy: FC<Props> = (props: Props) => {
-  const { setPriceRange, setSearch } = props;
+  const { setPriceRange, setSearch, setGender } = props;
+
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
+  }
+
+  function handleGender(e: React.ChangeEvent<HTMLSelectElement>) {
+    setGender(e.target.value);
   }
 
   return (
@@ -25,10 +31,10 @@ const FilterBy: FC<Props> = (props: Props) => {
       <div>
         <span>Gender: </span>
         <br />
-        <select name='' id=''>
-          <option value='All'>All</option>
-          <option value='Male'>Male</option>
-          <option value='Female'>Female</option>
+        <select name='' id='gender' onChange={handleGender}>
+          <option value='all'>All</option>
+          <option value='male'>Male</option>
+          <option value='female'>Female</option>
         </select>
       </div>
     </div>

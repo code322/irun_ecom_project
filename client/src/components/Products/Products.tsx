@@ -7,22 +7,31 @@ import './Products.scss';
 
 interface Props {
   search?: string;
+  gender?: string;
 }
 
-const Products: React.FC<Props> = ({ search }: Props) => {
+const Products: React.FC<Props> = ({ search, gender: selectGender }: Props) => {
   const dispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.productsReducer);
+  console.log(selectGender);
 
   const filterProducts = useMemo(() => {
-    if (search) {
+    if (selectGender === 'all' && !search) {
+      return products;
+    } else if (search) {
       let data = products.filter(({ title }) =>
         title.toLowerCase().includes(search.toLowerCase())
+      );
+      return data;
+    } else if (selectGender !== 'all' && selectGender) {
+      let data = products.filter(
+        ({ gender }) => gender.toLowerCase() === selectGender.toLowerCase()
       );
       return data;
     } else {
       return products;
     }
-  }, [products, search]);
+  }, [products, search, selectGender]);
 
   return (
     <ul
