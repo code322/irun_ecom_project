@@ -1,4 +1,10 @@
 .shop-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+@media (min-width: 800px) {
+  .shop-container {
+    flex-direction: row;
+  }
 }

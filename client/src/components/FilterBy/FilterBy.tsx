@@ -1,8 +1,9 @@
 import { FC } from 'react';
+import './FilterBy.scss';
 
 const FilterBy: FC = () => {
   return (
-    <div className=''>
+    <div className='filter-by-container'>
       <input type='text' placeholder='Search By Item Name' />
       <div>
         <span>Price Range</span>

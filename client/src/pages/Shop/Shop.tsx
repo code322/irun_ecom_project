@@ -6,7 +6,6 @@ const Shop = () => {
     <section>
       <div className='bd-container shop-container'>
         <FilterBy />
-
         <Products />
       </div>
     </section>
