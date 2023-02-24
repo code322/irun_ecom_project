@@ -4,18 +4,34 @@ import { Link } from 'react-router-dom';
 import { getProduct } from '../../redux/actions/product/actionsFetchProducts';
 import { RootState } from '../../redux/rootReducer';
 import './Products.scss';
+import { priceRangeType } from '../../pages/Shop/Shop';
 
 interface Props {
   search?: string;
   gender?: string;
+  priceRange?: priceRangeType;
 }
 
-const Products: React.FC<Props> = ({ search, gender: selectGender }: Props) => {
+const Products: React.FC<Props> = ({ ...props }: Props) => {
+  const { search, gender: selectGender, priceRange } = props;
   const dispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.productsReducer);
 
+  console.log(priceRange);
+
   const filterProducts = useMemo(() => {
-    if (selectGender === 'all' && !search) {
+    if (priceRange && priceRange?.min > 0 && priceRange.max === 0) {
+      let data = products.filter(({ price }) => price > priceRange?.min);
+      return data;
+    } else if (priceRange && priceRange?.max > 0 && priceRange.min === 0) {
+      let data = products.filter(({ price }) => price < priceRange?.max);
+      return data;
+    } else if (priceRange && priceRange?.max > 0 && priceRange.min > 0) {
+      let data = products.filter(
+        ({ price }) => price > priceRange?.min && price < priceRange?.max
+      );
+      return data;
+    } else if (selectGender === 'all' && !search) {
       return products;
     } else if (search) {
       let data = products.filter(({ title }) =>
@@ -30,7 +46,8 @@ const Products: React.FC<Props> = ({ search, gender: selectGender }: Props) => {
     } else {
       return products;
     }
-  }, [products, search, selectGender]);
+  }, [products, search, selectGender, priceRange]);
+  console.log(filterProducts);
 
   return (
     <ul

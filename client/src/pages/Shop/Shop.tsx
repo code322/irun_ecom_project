@@ -12,7 +12,7 @@ const Shop = () => {
 
   const [priceRange, setPriceRange] = useState<priceRangeType>({
     min: 0,
-    max: 80,
+    max: 0,
   });
 
   return (
@@ -25,7 +25,7 @@ const Shop = () => {
           setGender={setGender}
           priceRange={priceRange}
         />
-        <Products gender={gender} search={search} />
+        <Products gender={gender} search={search} priceRange={priceRange} />
       </div>
     </section>
   );

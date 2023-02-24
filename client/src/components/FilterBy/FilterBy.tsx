@@ -38,6 +38,7 @@ const FilterBy: FC<Props> = (props: Props) => {
             max={300}
             type='number'
             placeholder='min'
+            // value={priceRange.min}
           />
           <input
             onChange={handlePriceRange}
@@ -46,6 +47,7 @@ const FilterBy: FC<Props> = (props: Props) => {
             max={300}
             type='number'
             placeholder='max'
+            // value={priceRange.max}
           />
         </div>
       </div>
