@@ -13,7 +13,6 @@ interface Props {
 const Products: React.FC<Props> = ({ search, gender: selectGender }: Props) => {
   const dispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.productsReducer);
-  console.log(selectGender);
 
   const filterProducts = useMemo(() => {
     if (selectGender === 'all' && !search) {

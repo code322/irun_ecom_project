@@ -15,8 +15,6 @@ const Shop = () => {
     max: 80,
   });
 
-  console.log(gender);
-
   return (
     <section>
       <div className='bd-container shop-container'>
@@ -25,6 +23,7 @@ const Shop = () => {
           setSearch={setSearch}
           setPriceRange={setPriceRange}
           setGender={setGender}
+          priceRange={priceRange}
         />
         <Products gender={gender} search={search} />
       </div>

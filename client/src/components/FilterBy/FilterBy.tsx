@@ -6,9 +6,10 @@ interface Props {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   setPriceRange: React.Dispatch<React.SetStateAction<priceRangeType>>;
   setGender: React.Dispatch<React.SetStateAction<string>>;
+  priceRange: priceRangeType;
 }
 const FilterBy: FC<Props> = (props: Props) => {
-  const { setPriceRange, setSearch, setGender } = props;
+  const { setPriceRange, setSearch, setGender, priceRange } = props;
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
@@ -17,15 +18,35 @@ const FilterBy: FC<Props> = (props: Props) => {
   function handleGender(e: React.ChangeEvent<HTMLSelectElement>) {
     setGender(e.target.value);
   }
-
+  function handlePriceRange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setPriceRange({
+      ...priceRange,
+      [name]: Number(value),
+    });
+  }
   return (
     <div className='filter-by-container'>
       <input onChange={handleSearch} type='text' placeholder='Search...' />
       <div className='price-range-container'>
         <span>Price Range</span>
         <div className='ranges-input-container'>
-          <input min={0} max={1000} type='number' placeholder='min' />
-          <input min={80} max={1000} type='number' placeholder='max' />
+          <input
+            name='min'
+            onChange={handlePriceRange}
+            min={0}
+            max={300}
+            type='number'
+            placeholder='min'
+          />
+          <input
+            onChange={handlePriceRange}
+            name='max'
+            min={80}
+            max={300}
+            type='number'
+            placeholder='max'
+          />
         </div>
       </div>
       <div>
