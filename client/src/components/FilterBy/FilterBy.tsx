@@ -29,30 +29,31 @@ const FilterBy: FC<Props> = (props: Props) => {
     <div className='filter-by-container'>
       <input onChange={handleSearch} type='text' placeholder='Search...' />
       <div className='price-range-container'>
-        <span>Price Range</span>
-        <div className='ranges-input-container'>
-          <input
-            name='min'
-            onChange={handlePriceRange}
-            min={0}
-            max={300}
-            type='number'
-            placeholder='min'
-            // value={priceRange.min}
-          />
-          <input
-            onChange={handlePriceRange}
-            name='max'
-            min={80}
-            max={300}
-            type='number'
-            placeholder='max'
-            // value={priceRange.max}
-          />
+        <span className='filter-by-title'>Price Range</span>
+        <div className='price-range'>
+          <div className='ranges-input-container'>
+            <input
+              name='min'
+              onChange={handlePriceRange}
+              min={0}
+              max={300}
+              type='number'
+              placeholder='min'
+            />
+            <input
+              onChange={handlePriceRange}
+              name='max'
+              min={80}
+              max={300}
+              type='number'
+              placeholder='max'
+            />
+          </div>
+          <button>Go</button>
         </div>
       </div>
       <div>
-        <span>Gender: </span>
+        <span className='filter-by-title'>Gender: </span>
         <br />
         <select name='' id='gender' onChange={handleGender}>
           <option value='all'>All</option>

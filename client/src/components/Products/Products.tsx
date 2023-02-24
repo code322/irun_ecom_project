@@ -17,8 +17,6 @@ const Products: React.FC<Props> = ({ ...props }: Props) => {
   const dispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.productsReducer);
 
-  console.log(priceRange);
-
   const filterProducts = useMemo(() => {
     if (priceRange && priceRange?.min > 0 && priceRange.max === 0) {
       let data = products.filter(({ price }) => price > priceRange?.min);
@@ -47,7 +45,6 @@ const Products: React.FC<Props> = ({ ...props }: Props) => {
       return products;
     }
   }, [products, search, selectGender, priceRange]);
-  console.log(filterProducts);
 
   return (
     <ul
