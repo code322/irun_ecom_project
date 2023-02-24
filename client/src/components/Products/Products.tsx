@@ -5,6 +5,7 @@ import { getProduct } from '../../redux/actions/product/actionsFetchProducts';
 import { RootState } from '../../redux/rootReducer';
 import './Products.scss';
 import { priceRangeType } from '../../pages/Shop/Shop';
+import { filterProducts } from '../../utils/helpers';
 
 interface Props {
   search?: string;
@@ -17,33 +18,9 @@ const Products: React.FC<Props> = (props: Props) => {
   const dispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.productsReducer);
 
-  const filterProducts = useMemo(() => {
-    if (priceRange && priceRange?.min > 0 && priceRange.max === 0) {
-      let data = products.filter(({ price }) => price >= priceRange?.min);
-      return data;
-    } else if (priceRange && priceRange?.max > 0 && priceRange.min === 0) {
-      let data = products.filter(({ price }) => price <= priceRange?.max);
-      return data;
-    } else if (priceRange && priceRange?.max > 0 && priceRange.min > 0) {
-      let data = products.filter(
-        ({ price }) => price >= priceRange?.min && price <= priceRange?.max
-      );
-      return data;
-    } else if (selectGender === 'all' && !search) {
-      return products;
-    } else if (search) {
-      let data = products.filter(({ title }) =>
-        title.toLowerCase().includes(search.toLowerCase())
-      );
-      return data;
-    } else if (selectGender !== 'all' && selectGender) {
-      let data = products.filter(
-        ({ gender }) => gender.toLowerCase() === selectGender.toLowerCase()
-      );
-      return data;
-    } else {
-      return products;
-    }
+  const filteredProducts = useMemo(() => {
+    let data = filterProducts(search, selectGender, priceRange, products);
+    return data;
   }, [products, search, selectGender, priceRange]);
 
   return (
@@ -52,7 +29,7 @@ const Products: React.FC<Props> = (props: Props) => {
       aria-label='products-heading'
       className='product-list'
     >
-      {filterProducts.map(({ title, price, gender, _id, images }) => {
+      {filteredProducts.map(({ title, price, gender, _id, images }) => {
         return (
           <li className='product' key={_id} aria-label='productsItem'>
             <Link
