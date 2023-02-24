@@ -12,21 +12,21 @@ interface Props {
   priceRange?: priceRangeType;
 }
 
-const Products: React.FC<Props> = ({ ...props }: Props) => {
+const Products: React.FC<Props> = (props: Props) => {
   const { search, gender: selectGender, priceRange } = props;
   const dispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.productsReducer);
 
   const filterProducts = useMemo(() => {
     if (priceRange && priceRange?.min > 0 && priceRange.max === 0) {
-      let data = products.filter(({ price }) => price > priceRange?.min);
+      let data = products.filter(({ price }) => price >= priceRange?.min);
       return data;
     } else if (priceRange && priceRange?.max > 0 && priceRange.min === 0) {
-      let data = products.filter(({ price }) => price < priceRange?.max);
+      let data = products.filter(({ price }) => price <= priceRange?.max);
       return data;
     } else if (priceRange && priceRange?.max > 0 && priceRange.min > 0) {
       let data = products.filter(
-        ({ price }) => price > priceRange?.min && price < priceRange?.max
+        ({ price }) => price >= priceRange?.min && price <= priceRange?.max
       );
       return data;
     } else if (selectGender === 'all' && !search) {

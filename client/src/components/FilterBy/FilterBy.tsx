@@ -28,6 +28,12 @@ const FilterBy: FC<Props> = (props: Props) => {
       ...rangeValue,
       [name]: Number(value),
     });
+    if (rangeValue.max === 0 && rangeValue.min === 0) {
+      setPriceRange({
+        min: 0,
+        max: 0,
+      });
+    }
   }
 
   function handleFilterRange() {
@@ -37,7 +43,6 @@ const FilterBy: FC<Props> = (props: Props) => {
     });
   }
 
-  console.log(rangeValue);
   return (
     <div className='filter-by-container'>
       <input onChange={handleSearch} type='text' placeholder='Search...' />
