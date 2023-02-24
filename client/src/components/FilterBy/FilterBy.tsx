@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import './FilterBy.scss';
 import { priceRangeType } from '../../pages/Shop/Shop';
 interface Props {
@@ -9,7 +9,11 @@ interface Props {
   priceRange: priceRangeType;
 }
 const FilterBy: FC<Props> = (props: Props) => {
-  const { setPriceRange, setSearch, setGender, priceRange } = props;
+  const { setPriceRange, setSearch, setGender } = props;
+  const [rangeValue, setRangeValue] = useState({
+    min: 0,
+    max: 0,
+  });
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
@@ -20,11 +24,20 @@ const FilterBy: FC<Props> = (props: Props) => {
   }
   function handlePriceRange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    setPriceRange({
-      ...priceRange,
+    setRangeValue({
+      ...rangeValue,
       [name]: Number(value),
     });
   }
+
+  function handleFilterRange() {
+    setPriceRange({
+      min: rangeValue.min,
+      max: rangeValue.max,
+    });
+  }
+
+  console.log(rangeValue);
   return (
     <div className='filter-by-container'>
       <input onChange={handleSearch} type='text' placeholder='Search...' />
@@ -49,7 +62,7 @@ const FilterBy: FC<Props> = (props: Props) => {
               placeholder='max'
             />
           </div>
-          <button>Go</button>
+          <button onClick={handleFilterRange}>Go</button>
         </div>
       </div>
       <div>
