@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import './FilterBy.scss';
 import { priceRangeType } from '../../pages/Shop/Shop';
+import { FiSearch } from 'react-icons/fi';
 interface Props {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
@@ -28,12 +29,6 @@ const FilterBy: FC<Props> = (props: Props) => {
       ...rangeValue,
       [name]: Number(value),
     });
-    if (rangeValue.max === 0 && rangeValue.min === 0) {
-      setPriceRange({
-        min: 0,
-        max: 0,
-      });
-    }
   }
 
   function handleFilterRange() {
@@ -43,6 +38,15 @@ const FilterBy: FC<Props> = (props: Props) => {
     });
   }
 
+  useEffect(() => {
+    if (rangeValue.max === 0 && rangeValue.min === 0) {
+      setPriceRange({
+        min: 0,
+        max: 0,
+      });
+    }
+  }, [rangeValue]);
+  console.log(rangeValue);
   return (
     <div className='filter-by-container'>
       <input onChange={handleSearch} type='text' placeholder='Search...' />
@@ -67,7 +71,9 @@ const FilterBy: FC<Props> = (props: Props) => {
               placeholder='max'
             />
           </div>
-          <button onClick={handleFilterRange}>Go</button>
+          <button onClick={handleFilterRange}>
+            <FiSearch />
+          </button>
         </div>
       </div>
       <div>

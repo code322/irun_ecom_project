@@ -13,8 +13,34 @@ export const filterProducts = (
   priceRange: priceRangeType | undefined,
   products: product[]
 ): product[] => {
+  // filter by character, gender and price range
+  if (
+    search &&
+    selectGender &&
+    priceRange &&
+    priceRange?.min > 0 &&
+    priceRange?.max > 0
+  ) {
+    let data = products?.filter(({ gender, title, price }) => {
+      if (selectGender !== gender) {
+        return (
+          title.toLowerCase().includes(search.toLowerCase()) &&
+          price >= priceRange.min &&
+          price <= priceRange.max
+        );
+      }
+
+      return (
+        gender.toLowerCase() === selectGender.toLowerCase() &&
+        title.toLowerCase().includes(search.toLowerCase()) &&
+        price >= priceRange.min &&
+        price <= priceRange.max
+      );
+    });
+    return data;
+  }
   // filter only by min price
-  if (priceRange && priceRange?.min > 0 && priceRange.max === 0) {
+  else if (priceRange && priceRange?.min > 0 && priceRange.max === 0) {
     let data = products?.filter(({ price }) => price >= priceRange?.min);
     return data;
   }
