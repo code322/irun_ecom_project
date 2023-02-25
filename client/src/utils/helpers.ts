@@ -13,25 +13,45 @@ export const filterProducts = (
   priceRange: priceRangeType | undefined,
   products: product[]
 ): product[] => {
+  // filter only by min price
   if (priceRange && priceRange?.min > 0 && priceRange.max === 0) {
     let data = products?.filter(({ price }) => price >= priceRange?.min);
     return data;
-  } else if (priceRange && priceRange?.max > 0 && priceRange.min === 0) {
+  }
+
+  // filter only by max price
+  else if (priceRange && priceRange?.max > 0 && priceRange.min === 0) {
     let data = products?.filter(({ price }) => price <= priceRange?.max);
     return data;
-  } else if (priceRange && priceRange?.max > 0 && priceRange.min > 0) {
+  }
+
+  // filter by min and max price range
+  else if (priceRange && priceRange?.max > 0 && priceRange.min > 0) {
     let data = products?.filter(
       ({ price }) => price >= priceRange?.min && price <= priceRange?.max
     );
     return data;
   } else if (selectGender === 'all' && !search) {
     return products;
-  } else if (search) {
+  }
+  // filter by characters only
+  else if (search && selectGender === 'all') {
     let data = products?.filter(({ title }) =>
       title.toLowerCase().includes(search.toLowerCase())
     );
     return data;
-  } else if (selectGender !== 'all' && selectGender) {
+  }
+  // filter by characters and gender
+  else if (search && selectGender) {
+    let data = products?.filter(
+      ({ gender, title }) =>
+        gender.toLowerCase() === selectGender.toLowerCase() &&
+        title.toLowerCase().includes(search.toLowerCase())
+    );
+    return data;
+  }
+  // filter by gender only
+  else if (selectGender) {
     let data = products?.filter(
       ({ gender }) => gender.toLowerCase() === selectGender.toLowerCase()
     );
