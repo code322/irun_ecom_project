@@ -36,7 +36,6 @@ const FilterBy: FC<Props> = (props: Props) => {
     }
 
     if (activeThumb === 0) {
-      console.log(activeThumb);
       setPriceRange([
         Math.min(newValue[0], priceRange[1] - MIN_DISTANCE),
         priceRange[1],
@@ -48,8 +47,6 @@ const FilterBy: FC<Props> = (props: Props) => {
       ]);
     }
   };
-
-  console.log(priceRange);
 
   return (
     <div className='filter-by-container'>
