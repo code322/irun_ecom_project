@@ -16,31 +16,6 @@
   .price-range-container {
     display: flex;
     flex-direction: column;
-
-    .price-range {
-      display: flex;
-      gap: 5px;
-      button {
-        outline: none;
-        width: 30px;
-        height: 30px;
-        border: 1px solid #999;
-        border-radius: 5px;
-      }
-    }
-
-    .ranges-input-container {
-      display: flex;
-      gap: 5px;
-      input {
-        max-width: 70px;
-        outline: none;
-        border: 1px solid #999;
-        padding: 5px;
-        border-radius: 5px;
-        font-size: 16px;
-      }
-    }
   }
 }
 
