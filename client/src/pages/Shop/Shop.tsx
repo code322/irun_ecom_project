@@ -2,18 +2,12 @@ import { useState } from 'react';
 import FilterBy from '../../components/FilterBy/FilterBy';
 import Products from '../../components/Products/Products';
 import './Shop.scss';
-export type priceRangeType = {
-  min: number;
-  max: number;
-};
+
 const Shop = () => {
   const [search, setSearch] = useState<string>('');
   const [gender, setGender] = useState<string>('all');
 
-  const [priceRange, setPriceRange] = useState<priceRangeType>({
-    min: -Infinity,
-    max: Infinity,
-  });
+  const [priceRange, setPriceRange] = useState<number[]>([0, 200]);
 
   return (
     <section>

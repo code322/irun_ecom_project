@@ -1,22 +1,16 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import './FilterBy.scss';
-import { priceRangeType } from '../../pages/Shop/Shop';
-import { FiSearch } from 'react-icons/fi';
 import Slider from '@mui/material/Slider';
 
 interface Props {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
-  setPriceRange: React.Dispatch<React.SetStateAction<priceRangeType>>;
+  setPriceRange: React.Dispatch<React.SetStateAction<number[]>>;
   setGender: React.Dispatch<React.SetStateAction<string>>;
-  priceRange: priceRangeType;
+  priceRange: number[];
 }
 const FilterBy: FC<Props> = (props: Props) => {
-  const { setPriceRange, setSearch, setGender } = props;
-  const [rangeValue, setRangeValue] = useState({
-    min: -Infinity,
-    max: Infinity,
-  });
+  const { setPriceRange, priceRange, setSearch, setGender } = props;
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
@@ -25,41 +19,12 @@ const FilterBy: FC<Props> = (props: Props) => {
   function handleGender(e: React.ChangeEvent<HTMLSelectElement>) {
     setGender(e.target.value);
   }
-  function handlePriceRange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setRangeValue({
-      ...rangeValue,
-      [name]: Number(value),
-    });
-  }
-
-  function handleFilterRange() {
-    setPriceRange({
-      min: rangeValue.min,
-      max: rangeValue.max,
-    });
-  }
-
-  useEffect(() => {
-    if (
-      (rangeValue.max === 0 && rangeValue.min === 0) ||
-      (rangeValue.min === 0 && rangeValue.max === Infinity) ||
-      (rangeValue.max === 0 && rangeValue.min === -Infinity)
-    ) {
-      setPriceRange({
-        min: -Infinity,
-        max: Infinity,
-      });
-    }
-  }, [rangeValue]);
 
   //----
   function valuetext(value: number) {
-    console.log(value);
-    return `${value}°C`;
+    return value.toString();
   }
-  const minDistance = 10;
-  const [value1, setValue1] = React.useState<number[]>([20, 37]);
+  const MIN_DISTANCE = 10;
 
   const handleChange1 = (
     event: Event,
@@ -71,40 +36,36 @@ const FilterBy: FC<Props> = (props: Props) => {
     }
 
     if (activeThumb === 0) {
-      setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
+      console.log(activeThumb);
+      setPriceRange([
+        Math.min(newValue[0], priceRange[1] - MIN_DISTANCE),
+        priceRange[1],
+      ]);
     } else {
-      setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
+      setPriceRange([
+        priceRange[0],
+        Math.max(newValue[1], priceRange[0] + MIN_DISTANCE),
+      ]);
     }
   };
+
+  console.log(priceRange);
 
   return (
     <div className='filter-by-container'>
       <input onChange={handleSearch} type='text' placeholder='Search...' />
       <div className='price-range-container'>
-        <span className='filter-by-title'>Price Range</span>
-        <div className='price-range'>
-          <div className='ranges-input-container'>
-            <input
-              name='min'
-              onChange={handlePriceRange}
-              min={0}
-              max={300}
-              type='number'
-              placeholder='min'
-            />
-            <input
-              onChange={handlePriceRange}
-              name='max'
-              min={80}
-              max={300}
-              type='number'
-              placeholder='max'
-            />
-          </div>
-          <button onClick={handleFilterRange}>
-            <FiSearch />
-          </button>
-        </div>
+        <span className='filter-by-title'>Price Range:</span>
+        <Slider
+          getAriaLabel={() => 'Minimum distance'}
+          value={priceRange}
+          onChange={handleChange1}
+          valueLabelDisplay='auto'
+          getAriaValueText={valuetext}
+          min={0}
+          max={200}
+          disableSwap
+        />
       </div>
       <div>
         <span className='filter-by-title'>Gender: </span>
@@ -114,14 +75,6 @@ const FilterBy: FC<Props> = (props: Props) => {
           <option value='male'>Male</option>
           <option value='female'>Female</option>
         </select>
-        <Slider
-          getAriaLabel={() => 'Minimum distance'}
-          value={value1}
-          onChange={handleChange1}
-          valueLabelDisplay='auto'
-          getAriaValueText={valuetext}
-          disableSwap
-        />
       </div>
     </div>
   );

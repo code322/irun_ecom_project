@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import { getProduct } from '../../redux/actions/product/actionsFetchProducts';
 import { RootState } from '../../redux/rootReducer';
 import './Products.scss';
-import { priceRangeType } from '../../pages/Shop/Shop';
 import { filterProducts } from '../../utils/helpers';
 
 interface Props {
   search?: string;
   gender?: string;
-  priceRange?: priceRangeType;
+  priceRange?: number[];
 }
 
 const Products: React.FC<Props> = (props: Props) => {

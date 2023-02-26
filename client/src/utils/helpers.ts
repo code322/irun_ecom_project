@@ -1,5 +1,4 @@
 import { product } from '../redux/actions/product/actionTypes';
-import { priceRangeType } from './../pages/Shop/Shop';
 export const regexp =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -10,7 +9,7 @@ export const validEmail = (emailVal: string) => {
 export const filterProducts = (
   search: string | undefined,
   selectGender: string | undefined,
-  priceRange: priceRangeType | undefined,
+  priceRange: number[] | undefined,
   products: product[]
 ): product[] => {
   const ALL_GENDERS = 'all';
@@ -21,14 +20,14 @@ export const filterProducts = (
         return (
           title.toLowerCase().includes(search.toLowerCase()) &&
           gender.toLowerCase() === selectGender &&
-          price >= priceRange?.min &&
-          price <= priceRange?.max
+          price >= priceRange[0] &&
+          price <= priceRange[1]
         );
       } else {
         return (
           title.toLowerCase().includes(search.toLowerCase()) &&
-          price >= priceRange?.min &&
-          price <= priceRange?.max
+          price >= priceRange[0] &&
+          price <= priceRange[1]
         );
       }
     });
@@ -38,11 +37,11 @@ export const filterProducts = (
       if (selectGender !== ALL_GENDERS) {
         return (
           gender.toLowerCase() === selectGender &&
-          price >= priceRange?.min &&
-          price <= priceRange?.max
+          price >= priceRange[0] &&
+          price <= priceRange[1]
         );
       } else {
-        return price >= priceRange?.min && price <= priceRange?.max;
+        return price >= priceRange[0] && price <= priceRange[1];
       }
     });
     return data;
