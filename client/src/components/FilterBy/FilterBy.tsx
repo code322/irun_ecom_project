@@ -39,15 +39,18 @@ const FilterBy: FC<Props> = (props: Props) => {
   }
 
   useEffect(() => {
-    console.log(rangeValue.max);
-    if (rangeValue.max === 0 && rangeValue.min === 0) {
+    if (
+      (rangeValue.max === 0 && rangeValue.min === 0) ||
+      (rangeValue.min === 0 && rangeValue.max === Infinity) ||
+      (rangeValue.max === 0 && rangeValue.min === -Infinity)
+    ) {
       setPriceRange({
         min: -Infinity,
         max: Infinity,
       });
     }
   }, [rangeValue]);
-  console.log(rangeValue);
+
   return (
     <div className='filter-by-container'>
       <input onChange={handleSearch} type='text' placeholder='Search...' />
