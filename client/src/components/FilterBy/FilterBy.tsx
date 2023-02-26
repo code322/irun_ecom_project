@@ -12,8 +12,8 @@ interface Props {
 const FilterBy: FC<Props> = (props: Props) => {
   const { setPriceRange, setSearch, setGender } = props;
   const [rangeValue, setRangeValue] = useState({
-    min: 0,
-    max: 0,
+    min: -Infinity,
+    max: Infinity,
   });
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
@@ -39,10 +39,11 @@ const FilterBy: FC<Props> = (props: Props) => {
   }
 
   useEffect(() => {
+    console.log(rangeValue.max);
     if (rangeValue.max === 0 && rangeValue.min === 0) {
       setPriceRange({
-        min: 0,
-        max: 0,
+        min: -Infinity,
+        max: Infinity,
       });
     }
   }, [rangeValue]);

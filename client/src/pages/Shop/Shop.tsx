@@ -11,8 +11,8 @@ const Shop = () => {
   const [gender, setGender] = useState<string>('all');
 
   const [priceRange, setPriceRange] = useState<priceRangeType>({
-    min: 0,
-    max: 0,
+    min: -Infinity,
+    max: Infinity,
   });
 
   return (
