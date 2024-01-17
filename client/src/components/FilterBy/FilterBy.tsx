@@ -14,7 +14,7 @@ interface Props {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#999',
+      main: '#444',
     },
     secondary: {
       main: '#F00',
@@ -38,25 +38,15 @@ const FilterBy: FC<Props> = (props: Props) => {
     return value.toString();
   }
 
-  const handleRangeChange = (
-    event: Event,
-    newValue: number | number[],
-    activeThumb: number
-  ) => {
+  const handleRangeChange = (event: Event, newValue: number | number[], activeThumb: number) => {
     if (!Array.isArray(newValue)) {
       return;
     }
 
     if (activeThumb === 0) {
-      setPriceRange([
-        Math.min(newValue[0], priceRange[1] - MIN_DISTANCE),
-        priceRange[1],
-      ]);
+      setPriceRange([Math.min(newValue[0], priceRange[1] - MIN_DISTANCE), priceRange[1]]);
     } else {
-      setPriceRange([
-        priceRange[0],
-        Math.max(newValue[1], priceRange[0] + MIN_DISTANCE),
-      ]);
+      setPriceRange([priceRange[0], Math.max(newValue[1], priceRange[0] + MIN_DISTANCE)]);
     }
   };
 
