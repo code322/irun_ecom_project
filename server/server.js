@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const corsOptions = require('./config/corsOptions.js');
+const { allowedOrigins } = require('./config/allowedOrigins.js');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -8,14 +10,21 @@ const productsRoute = require('./routes/productsRoute');
 const usersRoutes = require('./routes/usersRoutes');
 
 const app = express();
-
-const corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
-
 app.use(cors(corsOptions));
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  const origin = req.get('origin');
+  console.log(origin);
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 
